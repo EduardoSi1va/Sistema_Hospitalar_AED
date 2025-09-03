@@ -29,6 +29,12 @@ bool paciente_apagar(PACIENTE **paciente){
    return(false);
 }
 
+void paciente_imprimir(PACIENTE *paciente){
+     if (paciente != NULL){
+        printf("\n%s - %d\n", paciente->nome, paciente->id);
+     }
+}
+
 int paciente_get_id(PACIENTE *paciente){
     if (paciente != NULL)
       return(paciente->id);
@@ -42,10 +48,4 @@ bool paciente_set_id(PACIENTE *paciente, int id){
     return (true);
   }
   return (false);
-}
-
-void paciente_imprimir(PACIENTE *paciente){
-     if (paciente != NULL){
-        printf("\n-->ID do Paciente: %d\n", paciente->id);
-     }
 }

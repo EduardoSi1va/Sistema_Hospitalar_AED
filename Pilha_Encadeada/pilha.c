@@ -74,6 +74,15 @@ int pilha_tamanho(PILHA *pilha)
     return ((pilha != NULL) ? pilha->tamanho : -1);
 }
 
+PACIENTE *pilha_topo(PILHA *pilha)
+{
+    if ((pilha != NULL) && (!pilha_vazia(pilha)))
+    {
+        return (pilha->topo->paciente);
+    }
+    return (NULL);
+}
+
 bool pilha_empilhar(PILHA *pilha, PACIENTE *paciente)
 {
     if (!pilha_cheia(pilha))
