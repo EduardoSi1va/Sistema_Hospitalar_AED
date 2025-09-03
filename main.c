@@ -75,7 +75,7 @@ int main() {
                 mostrar_historico();
                 break;
             default:
-                printf("Operação Inexistente.\n");
+                printf("Digite uma operação válida:\n");
                 break;
         }
         scanf("%d", &operacao);
