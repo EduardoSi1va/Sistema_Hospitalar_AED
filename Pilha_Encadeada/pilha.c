@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "pilha.h"
-#include "item.h"
+#include "../TAD_Paciente/paciente.h"
 
 typedef struct no NO;
 struct no
 {
-    ITEM *item;
+    PACIENTE *paciente;
     NO *anterior;
 };
 
@@ -38,7 +38,7 @@ void pilha_apagar(PILHA **pilha)
         {
             paux = (*pilha)->topo;
             (*pilha)->topo = (*pilha)->topo->anterior;
-            item_apagar(&paux->item);
+            paciente_apagar(&paux->paciente);
             paux->anterior = NULL;
             free(paux);
             paux = NULL;
@@ -74,14 +74,14 @@ int pilha_tamanho(PILHA *pilha)
     return ((pilha != NULL) ? pilha->tamanho : -1);
 }
 
-bool pilha_empilhar(PILHA *pilha, ITEM *item)
+bool pilha_empilhar(PILHA *pilha, PACIENTE *paciente)
 {
     if (!pilha_cheia(pilha))
     {
         NO *pnovo = (NO *)malloc(sizeof(NO));
         if (pnovo != NULL)
         {
-            pnovo->item = item;
+            pnovo->paciente = paciente;
             pnovo->anterior = pilha->topo;
             pilha->topo = pnovo;
             pilha->tamanho++;
@@ -91,18 +91,18 @@ bool pilha_empilhar(PILHA *pilha, ITEM *item)
     return false;
 }
 
-ITEM *pilha_desempilhar(PILHA *pilha)
+PACIENTE *pilha_desempilhar(PILHA *pilha)
 {
     if ((pilha != NULL) && (!pilha_vazia(pilha)))
     {
         NO *pno = pilha->topo;
-        ITEM *item = pilha->topo->item;
+        PACIENTE *paciente = pilha->topo->paciente;
         pilha->topo = pilha->topo->anterior;
         pno->anterior = NULL;
         free(pno);
         pno = NULL;
         pilha->tamanho--;
-        return (item);
+        return (paciente);
     }
     return (NULL);
 }

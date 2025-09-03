@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fila.h"
+#include "../TAD_Paciente/paciente.h"
 
 typedef struct no_
 {
     NO *proximo;
-    ITEM *conteudo;
+    PACIENTE *conteudo;
 } NO;
 
 struct fila_
@@ -36,12 +37,12 @@ void fila_apagar(FILA **f)
         {
             p_auxiliar = (*f)->inicio;
             (*f)->inicio = (*f)->inicio->proximo;
-            item_apagar(&p_auxiliar->conteudo);
+            paciente_apagar(&p_auxiliar->conteudo);
         }
     }
 }
 
-bool fila_inserir(FILA *f, ITEM *conteudo)
+bool fila_inserir(FILA *f, PACIENTE *conteudo)
 {
     if ((f != NULL) && (!fila_cheia(f)))
     {
@@ -64,12 +65,12 @@ bool fila_inserir(FILA *f, ITEM *conteudo)
 
 bool fila_cheia(FILA *f) { return 0; }
 
-ITEM *fila_remover(FILA *f)
+PACIENTE *fila_remover(FILA *f)
 {
     if (f != NULL && !fila_vazia(f))
     {
         NO *p_aux = f->inicio;
-        ITEM *item = p_aux->conteudo;
+        PACIENTE *paciente = p_aux->conteudo;
         f->inicio = p_aux->proximo;
         f->tamanho--;
 
@@ -79,7 +80,7 @@ ITEM *fila_remover(FILA *f)
         }
         free(p_aux);
         p_aux = NULL;
-        return (item);
+        return (paciente);
     }
     return (NULL);
 }

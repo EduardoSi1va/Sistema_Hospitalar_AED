@@ -1,7 +1,7 @@
 #ifndef _PILHA_H
 #define _PILHA_H
 
-  #include "item.h"
+  #include "../TAD_Paciente/paciente.h"
   #include <stdbool.h>
 
   #define TAM 1005
@@ -13,9 +13,8 @@
   bool pilha_vazia(PILHA* pilha);
   bool pilha_cheia(PILHA* pilha);
   int pilha_tamanho(PILHA* pilha);
-  ITEM* pilha_topo(PILHA* pilha);
-  bool pilha_empilhar(PILHA* pilha, ITEM* item);
-  ITEM* pilha_desempilhar(PILHA* pilha);
-  bool balanceada(char *sequencia);
+  PACIENTE* pilha_topo(PILHA* pilha);
+  bool pilha_empilhar(PILHA* pilha, PACIENTE* paciente);
+  PACIENTE* pilha_desempilhar(PILHA* pilha);
 
 #endif 
