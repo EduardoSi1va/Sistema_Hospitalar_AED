@@ -36,16 +36,21 @@ void mostrar_historico(void);
 void salvar_pacientes(void);
 
 int main() {
+    //função que carrega lista de pacientes do disco
     carregar_pacientes();
 
+    //cabeçalho - função estética e organizacional
     printf("Serviço de Atendimento Médico\n");
     printf("-------------------------------------------------\n");
- 
+
+    //imprime menu de operações/funcionalidades do sistema
     imprimir_escolha_operacao();
 
+    //recebe o procedimento a ser feito
     int operacao;
     scanf("%d", &operacao);
 
+    //a partir do valor da variável 'operacao', chama a função correspondente
     while(operacao != 8) {
         switch(operacao) {
             case 1:
@@ -76,9 +81,10 @@ int main() {
         scanf("%d", &operacao);
     } 
 
+    //encerramento - função estética e organizacional
     printf("Encerrando serviço de atendimento médico.\n");
 
-    //chamar função que realiza armazenamento dos pacientes em disco
+    //função que realiza armazenamento dos pacientes em disco
     salvar_pacientes();
 
     return 0;
