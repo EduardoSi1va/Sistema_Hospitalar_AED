@@ -23,9 +23,12 @@ void registrar_paciente(void);
 
 void alta_paciente(void);
 
-void adicionar_procedimeto(void);
-
 void desfazer_procedimento(void);
+
+void adicionar_procedimeto(int id_paciente, char procedimento[]) {
+    //PACIENTE *lista_buscarID(LISTA *lista, int id_paciente);
+
+};
 
 void chamar_paciente(void);
 
@@ -60,7 +63,7 @@ int main() {
                 alta_paciente();
                 break;
             case 3:
-                adicionar_procedimeto();
+                //adicionar_procedimeto();
                 break;
             case 4:
                 desfazer_procedimento();

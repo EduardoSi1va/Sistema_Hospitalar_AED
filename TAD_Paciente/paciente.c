@@ -6,18 +6,22 @@
 struct paciente{ 
         int id;
         char nome[100];
+        bool historico;
 };
 
 PACIENTE *paciente_criar (int id){
-          PACIENTE *paciente;
-          
-          paciente = (PACIENTE *) malloc(sizeof(PACIENTE));
-          
-          if (paciente != NULL){
-             paciente->id = id;
-             return(paciente);
-          }
-          return(NULL);
+   PACIENTE *paciente;
+   
+   paciente = (PACIENTE *) malloc(sizeof(PACIENTE));
+   
+   if (paciente != NULL){
+      paciente->id = id;
+      return(paciente);
+   }
+
+   paciente->historico = false;
+
+   return(NULL);
 }
 
 bool paciente_apagar(PACIENTE **paciente){
@@ -30,9 +34,9 @@ bool paciente_apagar(PACIENTE **paciente){
 }
 
 void paciente_imprimir(PACIENTE *paciente){
-     if (paciente != NULL){
-        printf("\n%s - %d\n", paciente->nome, paciente->id);
-     }
+   if (paciente != NULL){
+      printf("\n%s - %d\n", paciente->nome, paciente->id);
+   }
 }
 
 int paciente_get_id(PACIENTE *paciente){
