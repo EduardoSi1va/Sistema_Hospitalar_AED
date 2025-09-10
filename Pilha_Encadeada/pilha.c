@@ -115,3 +115,20 @@ PACIENTE *pilha_desempilhar(PILHA *pilha)
     }
     return (NULL);
 }
+
+void pilha_imprimir(PILHA *pilha)
+{
+    if (pilha != NULL && !pilha_vazia(pilha))
+    {
+        NO *aux = pilha->topo;
+        while (aux != NULL)
+        {
+            paciente_imprimir(aux->paciente);
+            aux = aux->anterior;
+        }
+    }
+    else
+    {
+        printf("Histórico vazio!\n");
+    }
+}

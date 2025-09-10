@@ -3,7 +3,7 @@
 #include "fila.h"
 #include "../TAD_Paciente/paciente.h"
 
-#define TAM 1000
+#define TAM 1000 // Quantidade máxima de pacientes do sistema hospitalar
 
 struct fila_
 {
@@ -49,7 +49,7 @@ void fila_apagar(FILA **f)
     }
 }
 
-bool fila_inserir(FILA *f, PACIENTE *paciente)
+bool fila_inserir_paciente(FILA *f, PACIENTE *paciente)
 {
     if (f != NULL && !fila_cheia(f))
     {
@@ -74,7 +74,7 @@ bool fila_inserir(FILA *f, PACIENTE *paciente)
     return false;
 }
 
-PACIENTE *fila_remover(FILA *f)
+PACIENTE *fila_remover_paciente(FILA *f)
 {
     if (f != NULL && !fila_vazia(f))
     {

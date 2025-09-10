@@ -10,5 +10,6 @@
 	void paciente_imprimir(PACIENTE *paciente);
 	int paciente_get_id(PACIENTE *paciente);
 	bool paciente_set_id(PACIENTE *paciente, int id);
+	bool paciente_set_nome(PACIENTE *paciente, const char *nome);
 
 #endif

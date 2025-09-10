@@ -16,5 +16,6 @@
   PACIENTE* pilha_topo(PILHA* pilha);
   bool pilha_empilhar(PILHA* pilha, PACIENTE* paciente);
   PACIENTE* pilha_desempilhar(PILHA* pilha);
+  void pilha_imprimir(PILHA* pilha);
 
 #endif 

@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "paciente.h"
+#include "../Pilha_Encadeada/pilha.h"
 
 struct paciente{ 
         int id;
         char nome[100];
-        bool historico;
+        PILHA *historico;
 };
 
 PACIENTE *paciente_criar (int id){
@@ -52,4 +53,12 @@ bool paciente_set_id(PACIENTE *paciente, int id){
     return (true);
   }
   return (false);
+}
+
+bool paciente_set_nome(PACIENTE *paciente, const char *nome) {
+   if (paciente != NULL && nome != NULL) {
+      snprintf(paciente->nome, sizeof(paciente->nome), "%s", nome);
+      return true;
+   }
+   return false;
 }
