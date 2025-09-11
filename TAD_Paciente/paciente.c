@@ -4,59 +4,70 @@
 #include "paciente.h"
 #include "../Pilha_Encadeada/pilha.h"
 
-struct paciente{ 
-        int id;
-        char nome[100];
-        PILHA *historico;
+struct paciente
+{
+   int id;
+   char nome[100];
+   PILHA *historico;
 };
 
-PACIENTE *paciente_criar (int id){
+PACIENTE *paciente_criar(int id)
+{
    PACIENTE *paciente;
-   
-   paciente = (PACIENTE *) malloc(sizeof(PACIENTE));
-   
-   if (paciente != NULL){
+
+   paciente = (PACIENTE *)malloc(sizeof(PACIENTE));
+
+   if (paciente != NULL)
+   {
       paciente->id = id;
-      return(paciente);
+      return (paciente);
    }
 
    paciente->historico = false;
 
-   return(NULL);
+   return (NULL);
 }
 
-bool paciente_apagar(PACIENTE **paciente){
-   if (*paciente != NULL){
-      free (*paciente); // Free apenas marca o espaço de memória como disponível
+bool paciente_apagar(PACIENTE **paciente)
+{
+   if (*paciente != NULL)
+   {
+      free(*paciente);  // Free apenas marca o espaço de memória como disponível
       *paciente = NULL; // Limpa o valor do espaço, pois o ponteiro recebe NULL
-      return(true);
+      return (true);
    }
-   return(false);
+   return (false);
 }
 
-void paciente_imprimir(PACIENTE *paciente){
-   if (paciente != NULL){
+void paciente_imprimir(PACIENTE *paciente)
+{
+   if (paciente != NULL)
+   {
       printf("\n%s - %d\n", paciente->nome, paciente->id);
    }
 }
 
-int paciente_get_id(PACIENTE *paciente){
-    if (paciente != NULL)
-      return(paciente->id);
-    exit(1);
+int paciente_get_id(PACIENTE *paciente)
+{
+   if (paciente != NULL)
+      return (paciente->id);
+   exit(1);
 }
 
-
-bool paciente_set_id(PACIENTE *paciente, int id){
-  if (paciente != NULL){
-    paciente->id = id;
-    return (true);
-  }
-  return (false);
+bool paciente_set_id(PACIENTE *paciente, int id)
+{
+   if (paciente != NULL)
+   {
+      paciente->id = id;
+      return (true);
+   }
+   return (false);
 }
 
-bool paciente_set_nome(PACIENTE *paciente, const char *nome) {
-   if (paciente != NULL && nome != NULL) {
+bool paciente_set_nome(PACIENTE *paciente, const char *nome)
+{
+   if (paciente != NULL && nome != NULL)
+   {
       snprintf(paciente->nome, sizeof(paciente->nome), "%s", nome);
       return true;
    }

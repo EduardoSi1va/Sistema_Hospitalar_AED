@@ -4,8 +4,6 @@
 #include "Pilha_Encadeada/pilha.h"
 #include "Fila_Encadeada/fila.h"
 
-
-
 // Variáveis globais utilizadas para gerenciar as principais estruturas do sistema hospitalar.
 // A fila representa os pacientes aguardando atendimento, enquanto a pilha armazena o histórico de atendimentos.
 FILA *fila_global = NULL;
@@ -22,7 +20,6 @@ void carregar_pacientes(void) {
     printf("[DEBUG] Carregar pacientes do disco (não implementado)\n");
 }
 
-
 // Função que exibe o menu principal de operações disponíveis ao usuário.
 void imprimir_escolha_operacao(void) {
     printf("Operação desejada:\n");
@@ -36,8 +33,6 @@ void imprimir_escolha_operacao(void) {
     printf("8 - Sair.\n");
     return;
 }
-
-
 
 // Função responsável pelo cadastro de um novo paciente.
 // Solicita ao usuário o ID e o nome, cria a estrutura e registra os dados.
@@ -59,8 +54,6 @@ void registrar_paciente(void) {
     }
 }
 
-
-
 // Função que realiza a alta do paciente, removendo-o da fila de espera e registrando no histórico.
 void alta_paciente(void) {
     PACIENTE *paciente = fila_remover_paciente(fila_global);
@@ -72,8 +65,6 @@ void alta_paciente(void) {
     }
 }
 
-
-
 // Função que desfaz o último procedimento realizado, removendo o paciente do topo da pilha de histórico.
 void desfazer_procedimento(void) {
     PACIENTE *paciente = pilha_desempilhar(historico_global);
@@ -84,8 +75,6 @@ void desfazer_procedimento(void) {
     }
 }
 
-
-
 // Função para adicionar um procedimento ao histórico médico de um paciente específico.
 // A busca e manipulação do histórico depende da implementação da lista de pacientes.
 void adicionar_procedimeto(int id_paciente, char procedimento[]) {
@@ -93,8 +82,6 @@ void adicionar_procedimeto(int id_paciente, char procedimento[]) {
     // pilha_empilhar(paciente->historico, procedimento);
     printf("[DEBUG] Adicionar procedimento '%s' ao paciente %d (não implementado)\n", procedimento, id_paciente);
 }
-
-
 
 // Função que exibe o paciente na frente da fila, simulando a chamada para atendimento.
 void chamar_paciente(void) {
@@ -106,15 +93,11 @@ void chamar_paciente(void) {
     }
 }
 
-
-
 // Função que imprime todos os pacientes atualmente na fila de espera.
 void mostrar_fila(void) {
     printf("Fila de espera:\n");
     fila_imprimir(fila_global);
 }
-
-
 
 // Função que imprime o histórico de atendimentos, exibindo todos os pacientes registrados na pilha.
 void mostrar_historico(void) {
@@ -122,13 +105,10 @@ void mostrar_historico(void) {
     pilha_imprimir(historico_global);
 }
 
-
-
 // Função responsável por salvar os dados dos pacientes em disco, caso haja persistência implementada.
 void salvar_pacientes(void) {
     printf("[DEBUG] Salvar pacientes no disco (não implementado)\n");
 }
-
 
 /*
  * Função principal do sistema hospitalar.
