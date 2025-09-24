@@ -15,8 +15,5 @@
 	bool lista_cheia(LISTA *lista);
 	void lista_imprimir(LISTA *lista);
 	
-	/*Funções adicionais*/
-	int lista_inverter(LISTA **lista);
-	bool lista_comparar(LISTA *l1, LISTA *l2);
 
 #endif
