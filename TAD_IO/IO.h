@@ -1,6 +1,6 @@
 #ifndef IO_H
 	#define IO_H
-	#include "item.h"
+	#include "../TAD_Paciente/paciente.h"
     #include "fila.h"
     #include "lista.h"
     #include <stdbool.h>
