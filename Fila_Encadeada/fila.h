@@ -16,4 +16,9 @@
 	bool fila_vazia(FILA *fila);
 	void fila_imprimir(FILA *fila);
 
+	// Iteração segura para persistência
+	void* fila_primeiro_no(FILA *fila);
+	void* fila_proximo_no(void *no);
+	PACIENTE* fila_no_paciente(void *no);
+
 #endif

@@ -141,3 +141,23 @@ void fila_imprimir(FILA *f)
         }
     }
 }
+
+// Iteração segura para persistência
+void *fila_primeiro_no(FILA *fila)
+{
+    if (!fila)
+        return NULL;
+    return (void *)fila->inicio;
+}
+void *fila_proximo_no(void *no)
+{
+    if (!no)
+        return NULL;
+    return (void *)(((NO *)no)->proximo);
+}
+PACIENTE *fila_no_paciente(void *no)
+{
+    if (!no)
+        return NULL;
+    return ((NO *)no)->conteudo;
+}
