@@ -11,13 +11,13 @@ typedef struct no_
     NO *proximo;
 } NO;
 
-struct lista_
+typedef struct lista_
 {
     NO *inicio;
     NO *fim;
     int tamanho;
     bool ordenada;
-};
+} LISTA;
 
 LISTA *lista_criar(bool ordenada)
 {
