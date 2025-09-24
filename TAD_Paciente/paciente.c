@@ -54,6 +54,13 @@ int paciente_get_id(PACIENTE *paciente)
    exit(1);
 }
 
+char* paciente_get_nome(PACIENTE *paciente)
+{
+   if (paciente != NULL)
+      return (paciente->nome);
+   return NULL;
+}
+
 bool paciente_set_id(PACIENTE *paciente, int id)
 {
    if (paciente != NULL)

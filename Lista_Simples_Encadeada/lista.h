@@ -10,6 +10,7 @@
 	PACIENTE *lista_remover(LISTA *lista, int chave);
 	bool lista_apagar(LISTA **lista);
 	PACIENTE *lista_busca(LISTA *lista, int chave);
+	PACIENTE *lista_primeiro(LISTA *lista);
 	int lista_tamanho(LISTA *lista);
 	bool lista_vazia(LISTA *lista);
 	bool lista_cheia(LISTA *lista);

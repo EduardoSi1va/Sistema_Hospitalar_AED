@@ -1,6 +1,7 @@
 #include "IO.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 bool SAVE(LISTA *lista, FILA *fila) {
     if(!lista || !fila) 
@@ -14,19 +15,28 @@ bool SAVE(LISTA *lista, FILA *fila) {
     if(!fp_lista)
         return false;
 
-    paciente = lista_remover(lista, paciente_get_id(paciente));
-    int chave;
-    while(paciente != NULL) { // Se mantém no while enquanto a lista não estiver vazia
-        // Escreve a chave no arquivo
-        chave = paciente_get_chave(paciente);
-        fwrite(&chave, sizeof(int), 1, fp_lista);
+    while(!lista_vazia(lista)) { // Enquanto a lista não estiver vazia
+        // Pega o primeiro paciente da lista
+        paciente = lista_primeiro(lista);
+        if(paciente == NULL) break;
+        
+        // Escreve o ID no arquivo
+        int id = paciente_get_id(paciente);
+        fwrite(&id, sizeof(int), 1, fp_lista);
+        
+        // Escreve o nome no arquivo
+        char *nome = paciente_get_nome(paciente);
+        int nome_len = strlen(nome);
+        fwrite(&nome_len, sizeof(int), 1, fp_lista); // Escreve o tamanho do nome primeiro
+        fwrite(nome, sizeof(char), nome_len, fp_lista); // Escreve o nome
+        
+        // Remove o paciente da lista
+        paciente = lista_remover(lista, id);
         // Apaga o item removido
         paciente_apagar(&paciente);
-        // Atualiza a variável auxiliar
-        paciente = paciente_remover(lista, paciente_get_id(paciente));
     }
     // Libera memória
-    LISTA_apagar(&lista);
+    lista_apagar(&lista);
     fclose(fp_lista); 
     fp_lista = NULL;
 
@@ -38,9 +48,16 @@ bool SAVE(LISTA *lista, FILA *fila) {
 
     paciente = fila_remover_paciente(fila);
     while(paciente != NULL) { // Se mantém no while enquanto a fila não estiver vazia
-        // Escreve a chave no arquivo
-        chave = paciente_get_id(paciente);
-        fwrite(&chave, sizeof(int), 1, fp_fila);
+        // Escreve o ID no arquivo
+        int id = paciente_get_id(paciente);
+        fwrite(&id, sizeof(int), 1, fp_fila);
+        
+        // Escreve o nome no arquivo
+        char *nome = paciente_get_nome(paciente);
+        int nome_len = strlen(nome);
+        fwrite(&nome_len, sizeof(int), 1, fp_fila); // Escreve o tamanho do nome primeiro
+        fwrite(nome, sizeof(char), nome_len, fp_fila); // Escreve o nome
+        
         // Apaga o item removido
         paciente_apagar(&paciente);
         // Atualiza a variável auxiliar
@@ -58,7 +75,8 @@ bool LOAD(LISTA **lista, FILA **fila) {
     if(!*lista || !*fila) 
         return false;
 
-    int chave; // Variável auxiliar
+    int id, nome_len; // Variáveis auxiliares
+    char nome[100]; // Buffer para o nome
 
     // Carregando os itens do arquivo na lista
 
@@ -66,10 +84,21 @@ bool LOAD(LISTA **lista, FILA **fila) {
     if(!fp_lista)
         return false;
 
-    // Lê as chaves até o fim do arquivo
-    while(fread(&chave, sizeof(int), 1, fp_lista) == 1) {
-        PACIENTE *paciente = paciente_criar(chave);
-        lista_inserir(*lista, paciente);
+    // Lê os dados até o fim do arquivo
+    while(fread(&id, sizeof(int), 1, fp_lista) == 1) {
+        // Lê o tamanho do nome
+        if(fread(&nome_len, sizeof(int), 1, fp_lista) != 1) break;
+        
+        // Lê o nome
+        if(fread(nome, sizeof(char), nome_len, fp_lista) != nome_len) break;
+        nome[nome_len] = '\0'; // Adiciona terminador de string
+        
+        // Cria paciente com dados completos
+        PACIENTE *paciente = paciente_criar(id);
+        if(paciente != NULL) {
+            paciente_set_nome(paciente, nome);
+            lista_inserir(*lista, paciente);
+        }
     }
     fclose(fp_lista); // Libera memória
 
@@ -79,10 +108,21 @@ bool LOAD(LISTA **lista, FILA **fila) {
     if(!fp_fila)
         return false;
 
-    // Lê as chaves até o fim do arquivo
-    while(fread(&chave, sizeof(int), 1, fp_fila) == 1) {
-        PACIENTE *paciente = paciente_criar(chave);
-        fila_inserir_paciente(*fila, paciente);
+    // Lê os dados até o fim do arquivo
+    while(fread(&id, sizeof(int), 1, fp_fila) == 1) {
+        // Lê o tamanho do nome
+        if(fread(&nome_len, sizeof(int), 1, fp_fila) != 1) break;
+        
+        // Lê o nome
+        if(fread(nome, sizeof(char), nome_len, fp_fila) != nome_len) break;
+        nome[nome_len] = '\0'; // Adiciona terminador de string
+        
+        // Cria paciente com dados completos
+        PACIENTE *paciente = paciente_criar(id);
+        if(paciente != NULL) {
+            paciente_set_nome(paciente, nome);
+            fila_inserir_paciente(*fila, paciente);
+        }
     }
     fclose(fp_fila); // Libera memória
 

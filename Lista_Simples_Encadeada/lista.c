@@ -39,7 +39,7 @@ bool lista_inserir_fim(LISTA *l, PACIENTE *conteudo)
     {
         p->conteudo = conteudo;
         p->proximo = NULL;
-        if (l->tamanho = 0)
+        if (l->tamanho == 0)
         {
             l->inicio = p;
         }
@@ -77,7 +77,7 @@ PACIENTE *lista_busca(LISTA *l, int chave)
         NO *p = l->inicio;
         while (p != NULL)
         {
-            if (item_get_chave(p->conteudo) == chave)
+            if (paciente_get_id(p->conteudo) == chave)
             {
                 return (p->conteudo);
             }
@@ -89,22 +89,79 @@ PACIENTE *lista_busca(LISTA *l, int chave)
 
 PACIENTE *lista_remover(LISTA *l, int chave)
 {
-    if (l != NULL)
+    if (l == NULL || lista_vazia(l)) 
+        return NULL;
+    
+    NO *p = l->inicio;
+    NO *anterior = NULL;
+    
+    while (p != NULL && paciente_get_id(p->conteudo) != chave) 
     {
-        NO *p = l->inicio;
+        anterior = p;
+        p = p->proximo;
     }
+    
+    if (p == NULL) 
+        return NULL;
+    
+    PACIENTE *paciente = p->conteudo;
+    
+    if (anterior == NULL) 
+    {
+        l->inicio = p->proximo;
+        if (l->inicio == NULL) 
+            l->fim = NULL;
+    }
+    else 
+    {
+        anterior->proximo = p->proximo;
+        if (p == l->fim) 
+            l->fim = anterior;
+    }
+    
+    free(p);
+    l->tamanho--;
+    return paciente;
 }
 
-bool fila_cheia(LISTA *l)
+PACIENTE *lista_primeiro(LISTA *l)
+{
+    if (l != NULL && l->inicio != NULL) 
+    {
+        return l->inicio->conteudo;
+    }
+    return NULL;
+}
+
+bool lista_cheia(LISTA *l)
 {
     if (l != NULL && l->tamanho == TAM)
         return true;
     return false;
 }
 
-bool fila_vazia(LISTA *l)
+bool lista_vazia(LISTA *l)
 {
     if (l != NULL && l->tamanho == 0)
         return true;
+    return false;
+}
+
+bool lista_apagar(LISTA **l)
+{
+    if (l != NULL && *l != NULL)
+    {
+        NO *aux;
+        while ((*l)->inicio != NULL)
+        {
+            aux = (*l)->inicio;
+            (*l)->inicio = (*l)->inicio->proximo;
+            paciente_apagar(&(aux->conteudo));
+            free(aux);
+        }
+        free(*l);
+        *l = NULL;
+        return true;
+    }
     return false;
 }
