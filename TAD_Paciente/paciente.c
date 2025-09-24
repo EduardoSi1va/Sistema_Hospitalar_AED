@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 #include "paciente.h"
 #include "../Pilha_Encadeada/pilha.h"
@@ -11,7 +12,7 @@ struct paciente
    PILHA *historico;
 };
 
-PACIENTE *paciente_criar(int id)
+PACIENTE *paciente_criar(int id, char* nome)
 {
    PACIENTE *paciente;
 
@@ -20,6 +21,7 @@ PACIENTE *paciente_criar(int id)
    if (paciente != NULL)
    {
       paciente->id = id;
+      strcpy(paciente->nome, paciente);
       return (paciente);
    }
 
@@ -79,4 +81,10 @@ bool paciente_set_nome(PACIENTE *paciente, const char *nome)
       return true;
    }
    return false;
+}
+
+char* paciente_get_nome(PACIENTE *paciente){
+   if (paciente != NULL)
+      return (paciente->nome);
+   exit(1);
 }
