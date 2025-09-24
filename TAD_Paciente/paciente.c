@@ -12,33 +12,32 @@ struct paciente
    PILHA *historico;
 };
 
-PACIENTE *paciente_criar(int id, char* nome)
+PACIENTE *paciente_criar(int id, const char *nome)
 {
-   PACIENTE *paciente;
-
-   paciente = (PACIENTE *)malloc(sizeof(PACIENTE));
-
+   PACIENTE *paciente = (PACIENTE *)malloc(sizeof(PACIENTE));
    if (paciente != NULL)
    {
       paciente->id = id;
-      strcpy(paciente->nome, paciente);
-      return (paciente);
+      snprintf(paciente->nome, sizeof(paciente->nome), "%s", nome ? nome : "");
+      paciente->historico = pilha_criar();
+      return paciente;
    }
-
-   paciente->historico = false;
-
-   return (NULL);
+   return NULL;
 }
 
 bool paciente_apagar(PACIENTE **paciente)
 {
-   if (*paciente != NULL)
+   if (paciente != NULL && *paciente != NULL)
    {
-      free(*paciente);  // Free apenas marca o espaço de memória como disponível
-      *paciente = NULL; // Limpa o valor do espaço, pois o ponteiro recebe NULL
-      return (true);
+      if ((*paciente)->historico != NULL)
+      {
+         pilha_apagar(&((*paciente)->historico));
+      }
+      free(*paciente);
+      *paciente = NULL;
+      return true;
    }
-   return (false);
+   return false;
 }
 
 void paciente_imprimir(PACIENTE *paciente)
@@ -46,7 +45,17 @@ void paciente_imprimir(PACIENTE *paciente)
    if (paciente != NULL)
    {
       printf("\n%s - %d\n", paciente->nome, paciente->id);
+      if (paciente->historico != NULL)
+      {
+         pilha_imprimir(paciente->historico);
+      }
    }
+}
+PILHA *paciente_get_historico(PACIENTE *paciente)
+{
+   if (paciente != NULL)
+      return paciente->historico;
+   return NULL;
 }
 
 int paciente_get_id(PACIENTE *paciente)
@@ -76,7 +85,8 @@ bool paciente_set_nome(PACIENTE *paciente, const char *nome)
    return false;
 }
 
-char* paciente_get_nome(PACIENTE *paciente){
+char *paciente_get_nome(PACIENTE *paciente)
+{
    if (paciente != NULL)
       return (paciente->nome);
    exit(1);

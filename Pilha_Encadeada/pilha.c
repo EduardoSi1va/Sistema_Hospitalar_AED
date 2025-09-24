@@ -7,7 +7,7 @@
 typedef struct no NO;
 struct no
 {
-    PACIENTE *paciente;
+    char procedimento[100];
     NO *anterior;
 };
 
@@ -25,34 +25,30 @@ PILHA *pilha_criar()
         pilha->topo = NULL;
         pilha->tamanho = 0;
     }
-    return (pilha);
+    return pilha;
 }
 
 void pilha_apagar(PILHA **pilha)
 {
-    NO *paux;
-    if (((*pilha) != NULL) && (!pilha_vazia(*pilha)))
+    if (pilha && *pilha)
     {
-
+        NO *paux;
         while ((*pilha)->topo != NULL)
         {
             paux = (*pilha)->topo;
             (*pilha)->topo = (*pilha)->topo->anterior;
-            paciente_apagar(&paux->paciente);
-            paux->anterior = NULL;
             free(paux);
-            paux = NULL;
         }
+        free(*pilha);
+        *pilha = NULL;
     }
-    free(*pilha);
-    *pilha = NULL;
 }
 
 bool pilha_vazia(PILHA *pilha)
 {
     if (pilha != NULL)
-        return ((pilha->tamanho == 0) ? true : false);
-    return (false);
+        return (pilha->tamanho == 0);
+    return false;
 }
 
 bool pilha_cheia(PILHA *pilha)
@@ -63,34 +59,35 @@ bool pilha_cheia(PILHA *pilha)
         if (novo != NULL)
         {
             free(novo);
-            return (false);
+            return false;
         }
-        return (true);
+        return true;
     }
+    return false;
 }
 
 int pilha_tamanho(PILHA *pilha)
 {
-    return ((pilha != NULL) ? pilha->tamanho : -1);
+    return (pilha != NULL) ? pilha->tamanho : -1;
 }
 
-PACIENTE *pilha_topo(PILHA *pilha)
+char *pilha_topo(PILHA *pilha)
 {
-    if ((pilha != NULL) && (!pilha_vazia(pilha)))
+    if (pilha != NULL && !pilha_vazia(pilha))
     {
-        return (pilha->topo->paciente);
+        return pilha->topo->procedimento;
     }
-    return (NULL);
+    return NULL;
 }
 
-bool pilha_empilhar(PILHA *pilha, PACIENTE *paciente)
+bool pilha_empilhar(PILHA *pilha, const char *procedimento)
 {
     if (!pilha_cheia(pilha))
     {
         NO *pnovo = (NO *)malloc(sizeof(NO));
         if (pnovo != NULL)
         {
-            pnovo->paciente = paciente;
+            snprintf(pnovo->procedimento, sizeof(pnovo->procedimento), "%s", procedimento);
             pnovo->anterior = pilha->topo;
             pilha->topo = pnovo;
             pilha->tamanho++;
@@ -100,20 +97,21 @@ bool pilha_empilhar(PILHA *pilha, PACIENTE *paciente)
     return false;
 }
 
-PACIENTE *pilha_desempilhar(PILHA *pilha)
+bool pilha_desempilhar(PILHA *pilha, char *procedimento)
 {
-    if ((pilha != NULL) && (!pilha_vazia(pilha)))
+    if (pilha != NULL && !pilha_vazia(pilha))
     {
         NO *pno = pilha->topo;
-        PACIENTE *paciente = pilha->topo->paciente;
+        if (procedimento != NULL)
+        {
+            snprintf(procedimento, 100, "%s", pno->procedimento);
+        }
         pilha->topo = pilha->topo->anterior;
-        pno->anterior = NULL;
         free(pno);
-        pno = NULL;
         pilha->tamanho--;
-        return (paciente);
+        return true;
     }
-    return (NULL);
+    return false;
 }
 
 void pilha_imprimir(PILHA *pilha)
@@ -121,9 +119,10 @@ void pilha_imprimir(PILHA *pilha)
     if (pilha != NULL && !pilha_vazia(pilha))
     {
         NO *aux = pilha->topo;
+        printf("Histórico de procedimentos:\n");
         while (aux != NULL)
         {
-            paciente_imprimir(aux->paciente);
+            printf("- %s\n", aux->procedimento);
             aux = aux->anterior;
         }
     }

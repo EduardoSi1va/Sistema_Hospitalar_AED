@@ -187,9 +187,10 @@ PACIENTE *lista_remover(LISTA *l, int chave)
         }
 
         PACIENTE *conteudo = atual->conteudo;
+        paciente_apagar(&conteudo); // Libera histórico e paciente
         free(atual);
         l->tamanho--;
-        return conteudo;
+        return NULL; // Retorna NULL pois o paciente foi apagado
     }
     return NULL; // Lista nula ou vazia
 }

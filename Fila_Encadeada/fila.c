@@ -80,15 +80,16 @@ PACIENTE *fila_remover_paciente(FILA *f)
     {
         NO *aux = f->inicio;
         PACIENTE *paciente = aux->conteudo;
-        f->inicio = f->inicio->proximo; // f->inicio = aux->proximo;
+        f->inicio = f->inicio->proximo;
         if (f->inicio == NULL)
         {
             f->final = NULL;
         }
+        paciente_apagar(&paciente); // Libera histórico e paciente
         free(aux);
         aux = NULL;
         f->tamanho--;
-        return paciente;
+        return NULL; // Retorna NULL pois o paciente foi apagado
     }
     return NULL;
 }
