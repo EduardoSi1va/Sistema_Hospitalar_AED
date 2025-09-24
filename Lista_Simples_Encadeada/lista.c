@@ -153,46 +153,52 @@ PACIENTE *lista_busca(LISTA *l, int chave)
 
 PACIENTE *lista_remover(LISTA *l, int chave)
 {
-    if (l != NULL && !lista_vazia(l))
+    if (l == NULL || lista_vazia(l))
+        return NULL;
+
+    NO *p = l->inicio;
+    NO *anterior = NULL;
+
+    // Procura o elemento na lista
+    while (p != NULL && paciente_get_id(p->conteudo) != chave)
     {
-        NO *anterior = NULL;
-        NO *atual = l->inicio;
-
-        while (atual != NULL && paciente_get_id(atual->conteudo) != chave)
-        {
-            anterior = atual;
-            atual = atual->proximo;
-        }
-
-        if (atual == NULL)
-        {
-            return NULL; // Chave não encontrada
-        }
-
-        if (anterior == NULL)
-        {
-            l->inicio = atual->proximo; // Remover o primeiro nó
-            if (l->inicio == NULL)
-            {
-                l->fim = NULL; // A lista ficou vazia
-            }
-        }
-        else
-        {
-            anterior->proximo = atual->proximo; // Remover nó do meio ou fim
-            if (anterior->proximo == NULL)
-            {
-                l->fim = anterior; // Atualizar o fim se necessário
-            }
-        }
-
-        PACIENTE *conteudo = atual->conteudo;
-        paciente_apagar(&conteudo); // Libera histórico e paciente
-        free(atual);
-        l->tamanho--;
-        return NULL; // Retorna NULL pois o paciente foi apagado
+        anterior = p;
+        p = p->proximo;
     }
-    return NULL; // Lista nula ou vazia
+
+    // Se não encontrou o elemento
+    if (p == NULL)
+        return NULL;
+
+    // Remove o primeiro elemento
+    if (anterior == NULL)
+    {
+        l->inicio = p->proximo;
+        if (l->inicio == NULL)
+            l->fim = NULL;
+    }
+    // Remove elemento do meio ou fim
+    else
+    {
+        anterior->proximo = p->proximo;
+        if (p == l->fim)
+            l->fim = anterior;
+    }
+
+    PACIENTE *paciente = p->conteudo;
+    paciente_apagar(&paciente); // Libera histórico e paciente
+    free(p);
+    l->tamanho--;
+    return NULL; // Retorna NULL pois o paciente foi apagado
+}
+
+PACIENTE *lista_primeiro(LISTA *l)
+{
+    if (l != NULL && l->inicio != NULL)
+    {
+        return l->inicio->conteudo;
+    }
+    return NULL;
 }
 
 int lista_tamanho(LISTA *l)
@@ -219,19 +225,19 @@ bool lista_apagar(LISTA **l)
 {
     if (l != NULL && *l != NULL)
     {
-        NO *p = (*l)->inicio;
-        while (p != NULL)
+        NO *aux;
+        while ((*l)->inicio != NULL)
         {
-            NO *t = p->proximo;
-            paciente_apagar(&p->conteudo);
-            free(p);
-            p = t;
+            aux = (*l)->inicio;
+            (*l)->inicio = (*l)->inicio->proximo;
+            paciente_apagar(&(aux->conteudo));
+            free(aux);
         }
         free(*l);
         *l = NULL;
-        return (true);
+        return true;
     }
-    return (false);
+    return false;
 }
 
 void lista_imprimir(LISTA *l)
@@ -248,4 +254,23 @@ void lista_imprimir(LISTA *l)
         paciente_imprimir(p->conteudo);
         p = p->proximo;
     }
+}
+// Iteração segura para persistência
+void *lista_primeiro_no(LISTA *lista)
+{
+    if (!lista)
+        return NULL;
+    return (void *)lista->inicio;
+}
+void *lista_proximo_no(void *no)
+{
+    if (!no)
+        return NULL;
+    return (void *)(((NO *)no)->proximo);
+}
+PACIENTE *lista_no_paciente(void *no)
+{
+    if (!no)
+        return NULL;
+    return ((NO *)no)->conteudo;
 }
