@@ -151,8 +151,3 @@ void salvar_pacientes(LISTA *lista, FILA *fila)
         printf("Erro ao salvar dados!\n");
 }
 
-/*
- * Função principal do sistema hospitalar.
- * Inicializa as estruturas, exibe o menu e executa as operações conforme escolha do usuário.
- * Ao final, libera toda a memória alocada.
- */
