@@ -6,7 +6,7 @@ Este projeto simula um sistema de atendimento médico de pacientes em um Pronto 
 - **TAD_Paciente/**: Cadastro, busca, remoção e persistência de pacientes.
 - **Fila_Encadeada/**: Gerencia a fila de espera dos pacientes (FIFO).
 - **Pilha_Encadeada/**: Gerencia o histórico médico dos pacientes (LIFO).
-- **data/**: Arquivos de persistência dos dados.
+- **Persistencia_Dados/**: Arquivos de persistência dos dados.
 - **main.c**: Menu principal e integração dos módulos.
 
 ## Funcionalidades

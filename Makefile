@@ -6,7 +6,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -pedantic -g
 TARGET = sistema_hospitalar
 OBJ_DIR = Objects
-DATA_DIR = data
+DATA_DIR = Persistencia_Dados
 
 # Arquivos fonte
 SRCDIR_LISTA = Lista_Simples_Encadeada
@@ -61,7 +61,7 @@ $(OBJ_DIR):
 # Criar diretório de dados se não existir
 $(DATA_DIR):
 	@mkdir -p $(DATA_DIR)
-	@echo "Diretório de dados criado."
+	@echo "Diretório de persistência de dados criado."
 
 # Compilação com debug
 debug: CFLAGS += -DDEBUG -O0
@@ -125,7 +125,7 @@ help:
 	@echo "Estrutura do projeto:"
 	@echo "  $(TARGET)      - Executável principal"
 	@echo "  $(OBJ_DIR)/         - Diretório de arquivos objeto"
-	@echo "  $(DATA_DIR)/        - Diretório de dados persistentes"
+	@echo "  $(DATA_DIR)/        - Diretório de persistência de dados"
 
 # Declarar phony targets
 .PHONY: all debug release run clean clean-all info install-deps check help
