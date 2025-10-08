@@ -33,6 +33,13 @@ void registrar_paciente(LISTA *lista, FILA *fila)
         return;
     }
     int id;
+    if (lista_busca(lista, id) != NULL)
+    {
+        printf("Já existe um paciente com esse ID!\n\n");
+        fila_inserir_paciente(fila, lista_busca(lista, id));
+
+        return;
+    }
     char nome[100];
     printf("Digite o ID do paciente: ");
     scanf("%d", &id);
@@ -40,11 +47,7 @@ void registrar_paciente(LISTA *lista, FILA *fila)
     printf("Digite o nome do paciente: ");
     fgets(nome, 99, stdin);
     nome[strcspn(nome, "\n")] = '\0';
-    if (lista_busca(lista, id) != NULL)
-    {
-        printf("Já existe um paciente com esse ID!\n\n");
-        return;
-    }
+
     PACIENTE *paciente = paciente_criar(id, nome);
     if (paciente != NULL)
     {
@@ -70,6 +73,9 @@ void registrar_obito(LISTA *lista, FILA *fila)
         if ((fila_busca(fila, id)) == NULL)
         {
             printf("Óbito de %s registrado com sucesso, paciente removido da base de dados.\n\n", paciente_get_nome(paciente));
+            // Primeiro remover da lista, depois apagar a struct paciente para evitar
+            // dangling pointers em funções que consultam a lista.
+            lista_remover(lista, id);
             paciente = lista_remover(lista, id);
             paciente_apagar(&paciente);
             return;
@@ -115,14 +121,14 @@ void adicionar_procedimento(LISTA *lista)
     fgets(procedimento, 99, stdin);
     procedimento[strcspn(procedimento, "\n")] = '\0';
     PACIENTE *paciente = lista_busca(lista, id);
-    if (pilha_cheia(paciente_get_historico(paciente)))
-    {
-        printf("Não é possível adicionar procedimento ao histórico do paciente %d pois este já atingiu a quantidade máxima de procedimentos.\n", id);
-        return;
-    }
     if (paciente == NULL)
     {
         printf("Paciente não encontrado!\n\n");
+        return;
+    }
+    if (pilha_cheia(paciente_get_historico(paciente)))
+    {
+        printf("Não é possível adicionar procedimento ao histórico do paciente %d pois este já atingiu a quantidade máxima de procedimentos.\n", id);
         return;
     }
     pilha_empilhar(paciente_get_historico(paciente), procedimento);

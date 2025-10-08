@@ -1,0 +1,21 @@
+# Compiled executables
+*.exe
+*.out
+
+# Object files
+*.o
+Objects/
+
+# Binary data files (optional - you might want to track these)
+# *.bin
+
+# Build directories
+obj/
+
+# IDE files
+.vscode/
+.vs/
+
+# OS files
+.DS_Store
+Thumbs.db
