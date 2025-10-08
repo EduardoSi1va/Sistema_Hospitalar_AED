@@ -91,6 +91,23 @@ PACIENTE *fila_remover_paciente(FILA *f)
     return NULL;
 }
 
+PACIENTE *fila_busca(FILA *f, int chave)
+{
+    if (f != NULL)
+    {
+        NO *p = f->inicio;
+        while (p != NULL)
+        {
+            if (paciente_get_id(p->conteudo) == chave)
+            {
+                return (p->conteudo);
+            }
+            p = p->proximo;
+        }
+    }
+    return (NULL);
+}
+
 PACIENTE *fila_frente(FILA *f)
 {
     if (f != NULL && !fila_vazia(f))

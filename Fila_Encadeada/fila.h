@@ -11,6 +11,7 @@
 	PACIENTE *fila_remover_paciente(FILA *fila);
 	PACIENTE *fila_frente(FILA *fila);
 	PACIENTE *fila_atras(FILA *fila);
+	PACIENTE *fila_busca(FILA *fila, int chave);
 	int fila_tamanho(FILA *fila);
 	bool fila_cheia(FILA *fila);
 	bool fila_vazia(FILA *fila);

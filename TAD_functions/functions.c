@@ -11,7 +11,7 @@ void imprimir_escolha_operacao(void)
 {
     printf("Operação desejada:\n");
     printf("1 - Registrar paciente.\n");
-    printf("2 - Dar alta ao paciente.\n");
+    printf("2 - Registar óbito de poaciente.\n");
     printf("3 - Adicionar procedimento ao histórico médico.\n");
     printf("4 - Desfazer procedimento do histórico médico.\n");
     printf("5 - Chamar paciente para atendimento.\n");
@@ -33,7 +33,7 @@ void registrar_paciente(LISTA *lista, FILA *fila)
     scanf("%s", nome);
     if (lista_busca(lista, id) != NULL)
     {
-        printf("Já existe paciente com esse ID!\n");
+        printf("Já existe um paciente com esse ID!\n\n");
         return;
     }
     PACIENTE *paciente = paciente_criar(id, nome);
@@ -41,26 +41,33 @@ void registrar_paciente(LISTA *lista, FILA *fila)
     {
         lista_inserir(lista, paciente);
         fila_inserir_paciente(fila, paciente);
-        printf("Paciente registrado com sucesso!\n");
+        printf("Paciente registrado com sucesso!\n\n");
     }
     else
     {
-        printf("Erro ao registrar paciente.\n");
+        printf("Erro ao registrar paciente.\n\n");
     }
 }
 
-// Função que realiza a alta do paciente, removendo-o da fila de espera.
-void alta_paciente(FILA *fila)
+// Função que registra o óbito de um paciente, apagando o paciente do sistema.
+void registrar_obito(LISTA *lista, FILA *fila)
 {
-    PACIENTE *paciente = fila_remover_paciente(fila);
+    int id;
+    printf("Digite o ID do paciente: ");
+    scanf("%d", &id);
+    PACIENTE *paciente = lista_busca(lista, id);
     if (paciente != NULL)
     {
-        printf("Paciente %d recebeu alta.\n", paciente_get_id(paciente));
+        if ((fila_busca(fila, id)) == NULL)
+        {
+            lista_remover(lista, id);
+            paciente_apagar(paciente);
+            printf("Óbito de %s registrada com sucesso, paciente removido da base de dados.\n\n", paciente_get_nome(paciente));
+            return;
+        }
+        printf("Registro de óbito inválido, paciente está na lista de espera.\n\n");
     }
-    else
-    {
-        printf("Nenhum paciente na fila para dar alta.\n");
-    }
+    printf("Paciente inexistente!\n\n");
 }
 
 // Função que desfaz o último procedimento realizado do histórico do paciente informado.
@@ -73,16 +80,16 @@ void desfazer_procedimento(LISTA *lista)
     PACIENTE *paciente = lista_busca(lista, id);
     if (paciente == NULL)
     {
-        printf("Paciente não encontrado!\n");
+        printf("Paciente não encontrado!\n\n");
         return;
     }
     if (pilha_desempilhar(paciente_get_historico(paciente), procedimento))
     {
-        printf("Procedimento '%s' desfeito para paciente %d.\n", procedimento, id);
+        printf("Procedimento '%s' desfeito para paciente %d.\n\n", procedimento, id);
     }
     else
     {
-        printf("Histórico vazio, nada a desfazer.\n");
+        printf("Histórico vazio, nada a desfazer.\n\n");
     }
 }
 
@@ -98,24 +105,24 @@ void adicionar_procedimento(LISTA *lista)
     PACIENTE *paciente = lista_busca(lista, id);
     if (paciente == NULL)
     {
-        printf("Paciente não encontrado!\n");
+        printf("Paciente não encontrado!\n\n");
         return;
     }
     pilha_empilhar(paciente_get_historico(paciente), procedimento);
-    printf("Procedimento '%s' adicionado ao histórico do paciente %d.\n", procedimento, id);
+    printf("Procedimento '%s' adicionado ao histórico do paciente %d.\n\n", procedimento, id);
 }
 
 // Função que exibe o paciente na frente da fila recebida, simulando a chamada para atendimento.
 void chamar_paciente(FILA *fila)
 {
-    PACIENTE *paciente = fila_frente(fila);
+    PACIENTE *paciente = fila_remover_paciente(fila);
     if (paciente != NULL)
     {
-        printf("Chamando paciente %d para atendimento.\n", paciente_get_id(paciente));
+        printf("Chamando paciente %d para atendimento.\n\n", paciente_get_id(paciente));
     }
     else
     {
-        printf("Nenhum paciente na fila de espera.\n");
+        printf("Nenhum paciente na fila de espera.\n\n");
     }
 }
 
@@ -135,7 +142,7 @@ void mostrar_historico(LISTA *lista)
     PACIENTE *paciente = lista_busca(lista, id);
     if (paciente == NULL)
     {
-        printf("Paciente não encontrado!\n");
+        printf("Paciente não encontrado!\n\n");
         return;
     }
     printf("Histórico do paciente %d:\n", id);
@@ -147,8 +154,7 @@ void salvar_pacientes(LISTA *lista, FILA *fila)
 {
     // Chama função de persistência se implementada
     if (SAVE(lista, fila))
-        printf("Dados salvos com sucesso!\n");
+        printf("Dados salvos com sucesso!\n\n");
     else
-        printf("Erro ao salvar dados!\n");
+        printf("Erro ao salvar os dados!\n\n");
 }
-
