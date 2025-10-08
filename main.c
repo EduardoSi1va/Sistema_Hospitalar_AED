@@ -33,6 +33,7 @@ int main()
                 ; // Limpa buffer
             continue;
         }
+        printf("\n");
         switch (operacao)
         {
         case 1:
