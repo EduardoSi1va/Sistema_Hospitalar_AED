@@ -210,9 +210,10 @@ int lista_tamanho(LISTA *l)
 
 bool lista_cheia(LISTA *l)
 {
-    if(l != NULL) {
+    if (l != NULL)
+    {
         NO *novo = (NO *)malloc(sizeof(NO));
-        if(novo == NULL)
+        if (novo == NULL)
             return true;
         free(novo);
         return false;
