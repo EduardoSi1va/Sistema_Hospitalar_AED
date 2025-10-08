@@ -184,7 +184,6 @@ PACIENTE *lista_remover(LISTA *l, int chave)
     }
 
     PACIENTE *paciente = p->conteudo;
-    anterior->proximo = p->proximo;
     p->proximo = NULL;
     free(p);
     p = NULL;

@@ -37,7 +37,9 @@ void fila_apagar(FILA **f)
         {
             aux = (*f)->inicio;
             (*f)->inicio = (*f)->inicio->proximo;
-            paciente_apagar(&(aux->conteudo));
+            // Não apagar o paciente aqui: a lista é a dona da alocação do paciente.
+            // Apenas liberar o nó da fila para evitar double-free quando ambos
+            // lista_apagar e fila_apagar são chamados.
             aux->conteudo = NULL;
             free(aux);
             aux = NULL;
