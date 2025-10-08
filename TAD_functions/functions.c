@@ -10,7 +10,7 @@
 // Função que exibe o menu principal de operações disponíveis ao usuário.
 void imprimir_escolha_operacao(void)
 {
-    printf("Operação desejada:\n");
+    printf("\nOperação desejada:\n");
     printf("1 - Registrar paciente.\n");
     printf("2 - Registar óbito de paciente.\n");
     printf("3 - Adicionar procedimento ao histórico médico.\n");
@@ -32,10 +32,10 @@ void registrar_paciente(LISTA *lista, FILA *fila)
         printf("Não é possível registrar paciente pois a fila de espera está cheia.\n");
         return;
     }
-    int id;
+    int id; 
     if (lista_busca(lista, id) != NULL)
     {
-        printf("Já existe um paciente com esse ID!\n\n");
+        printf("Já existe um paciente com esse ID, reinserindo-o à fila de espera\n\n");
         fila_inserir_paciente(fila, lista_busca(lista, id));
 
         return;
@@ -158,7 +158,7 @@ void mostrar_fila(FILA *fila)
         return;
     }
 
-    printf("Fila de espera:\n");
+    printf("Fila de espera:");
     fila_imprimir(fila);
 }
 
