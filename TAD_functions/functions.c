@@ -70,8 +70,8 @@ void registrar_obito(LISTA *lista, FILA *fila)
         if ((fila_busca(fila, id)) == NULL)
         {
             printf("Óbito de %s registrado com sucesso, paciente removido da base de dados.\n\n", paciente_get_nome(paciente));
+            paciente = lista_remover(lista, id);
             paciente_apagar(&paciente);
-            lista_remover(lista, id);
             return;
         }
         printf("Registro de óbito inválido, paciente está na fila de espera.\n\n");
