@@ -4,21 +4,19 @@
 #include "lista.h"
 #include "../TAD_Paciente/paciente.h"
 
-#define TAM 1000
-
 typedef struct no_
 {
     PACIENTE *conteudo;
-    NO *proximo;
+    struct no_ *proximo;
 } NO;
 
-typedef struct lista_
+struct lista_
 {
     NO *inicio;
     NO *fim;
     int tamanho;
     bool ordenada;
-} LISTA;
+};
 
 LISTA *lista_criar(bool ordenada)
 {
@@ -210,7 +208,13 @@ int lista_tamanho(LISTA *l)
 
 bool lista_cheia(LISTA *l)
 {
-    // Lista dinâmica não fica cheia (sem limite prático)
+    if(l != NULL) {
+        NO *novo = (NO *)malloc(sizeof(NO));
+        if(novo == NULL)
+            return true;
+        free(novo);
+        return false;
+    }
     return false;
 }
 

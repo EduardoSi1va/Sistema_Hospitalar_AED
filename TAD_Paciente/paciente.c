@@ -91,10 +91,3 @@ bool paciente_set_nome(PACIENTE *paciente, const char *nome)
    }
    return false;
 }
-
-char *paciente_get_nome(PACIENTE *paciente)
-{
-   if (paciente != NULL)
-      return (paciente->nome);
-   exit(1);
-}

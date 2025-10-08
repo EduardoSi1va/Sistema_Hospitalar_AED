@@ -5,20 +5,7 @@
 #include "Lista_Simples_Encadeada/lista.h"
 #include "Fila_Encadeada/fila.h"
 #include "TAD_functions/functions.h"
-
-// Função que exibe o menu principal de operações disponíveis ao usuário.
-void imprimir_escolha_operacao(void)
-{
-    printf("Operação desejada:\n");
-    printf("1 - Registrar paciente.\n");
-    printf("2 - Dar alta ao paciente.\n");
-    printf("3 - Adicionar procedimento ao histórico médico.\n");
-    printf("4 - Desfazer procedimento do histórico médico.\n");
-    printf("5 - Chamar paciente para atendimento.\n");
-    printf("6 - Mostrar fila de espera.\n");
-    printf("7 - Mostrar histórico do paciente.\n");
-    printf("8 - Sair.\n");
-}
+#include "TAD_IO/IO.h"
 
 int main() {
     LISTA *lista = lista_criar(false); // Lista não ordenada

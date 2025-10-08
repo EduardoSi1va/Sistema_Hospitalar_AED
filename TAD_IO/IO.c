@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdbool.h>
+#include "IO.h"
 #include "../Lista_Simples_Encadeada/lista.h"
 #include "../Fila_Encadeada/fila.h"
 #include "../TAD_Paciente/paciente.h"
 #include "../Pilha_Encadeada/pilha.h"
-#include <stdbool.h>
 
 // Salva a lista de pacientes em arquivo binário
 bool SAVE(LISTA *lista, FILA *fila)

@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "functions.h"
-#include "TAD_Paciente/paciente.h"
-#include "Pilha_Encadeada/pilha.h"
-#include "Fila_Encadeada/fila.h"
+#include "../TAD_Paciente/paciente.h"
+#include "../Pilha_Encadeada/pilha.h"
+#include "../Fila_Encadeada/fila.h"
+#include "../TAD_IO/IO.h"
 
 // Função que exibe o menu principal de operações disponíveis ao usuário.
 void imprimir_escolha_operacao(void)

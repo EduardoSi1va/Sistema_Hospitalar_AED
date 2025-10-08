@@ -3,7 +3,11 @@
 #include "fila.h"
 #include "../TAD_Paciente/paciente.h"
 
-#define TAM 1000 // Quantidade máxima de pacientes do sistema hospitalar
+typedef struct no_
+{
+    struct no_ *proximo;
+    PACIENTE *conteudo;
+} NO;
 
 struct fila_
 {
@@ -11,12 +15,6 @@ struct fila_
     NO *final;
     int tamanho;
 };
-
-typedef struct no_
-{
-    NO *proximo;
-    PACIENTE *conteudo;
-} NO;
 
 FILA *fila_criar(void)
 {
@@ -116,8 +114,13 @@ int fila_tamanho(FILA *f)
 
 bool fila_cheia(FILA *f)
 {
-    if (f != NULL && f->tamanho == TAM)
-        return true;
+    if(f != NULL) {        
+        NO *novo = (NO *)malloc(sizeof(NO));
+        if(novo == NULL) 
+            return true;
+        free(novo);
+        return false;
+    }
     return false;
 }
 

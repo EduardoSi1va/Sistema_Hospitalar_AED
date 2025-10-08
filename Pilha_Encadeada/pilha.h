@@ -3,7 +3,6 @@
 
 
 #include <stdbool.h>
-#define TAM 1005
 
 typedef struct pilha PILHA;
 
