@@ -7,7 +7,7 @@
 
 void imprimir_escolha_operacao(void);
 void registrar_paciente(LISTA *lista, FILA *fila);
-void alta_paciente(FILA *fila);
+void registrar_obito(LISTA *lista, FILA *fila);
 void adicionar_procedimento(LISTA *lista);
 void desfazer_procedimento(LISTA *lista);
 void chamar_paciente(FILA *fila);
