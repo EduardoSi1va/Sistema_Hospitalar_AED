@@ -57,13 +57,16 @@ int main()
             mostrar_historico(lista);
             break;
         case 8:
+            lista_imprimir(lista);
+            break;
+        case 9:
             printf("Encerrando serviço de atendimento médico.\n");
             break;
         default:
             printf("Digite uma operação válida.\n");
             break;
         }
-    } while (operacao != 8);
+    } while (operacao != 9);
 
     // Salvar dados antes de sair
     salvar_pacientes(lista, fila);
