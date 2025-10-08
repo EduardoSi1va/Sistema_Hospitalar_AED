@@ -12,13 +12,14 @@ void imprimir_escolha_operacao(void)
 {
     printf("Operação desejada:\n");
     printf("1 - Registrar paciente.\n");
-    printf("2 - Registar óbito de poaciente.\n");
+    printf("2 - Registar óbito de paciente.\n");
     printf("3 - Adicionar procedimento ao histórico médico.\n");
     printf("4 - Desfazer procedimento do histórico médico.\n");
     printf("5 - Chamar paciente para atendimento.\n");
     printf("6 - Mostrar fila de espera.\n");
     printf("7 - Mostrar histórico do paciente.\n");
-    printf("8 - Sair.\n");
+    printf("8 - Mostrar lista de pacientes.\n");
+    printf("9 - Sair.\n");
     return;
 }
 
@@ -67,12 +68,13 @@ void registrar_obito(LISTA *lista, FILA *fila)
     {
         if ((fila_busca(fila, id)) == NULL)
         {
+            printf("Óbito de %s registrado com sucesso, paciente removido da base de dados.\n\n", paciente_get_nome(paciente));
+            paciente_apagar(&paciente);
             lista_remover(lista, id);
-            paciente_apagar(paciente);
-            printf("Óbito de %s registrada com sucesso, paciente removido da base de dados.\n\n", paciente_get_nome(paciente));
             return;
         }
-        printf("Registro de óbito inválido, paciente está na lista de espera.\n\n");
+        printf("Registro de óbito inválido, paciente está na fila de espera.\n\n");
+        return;
     }
     printf("Paciente inexistente!\n\n");
 }
