@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "functions.h"
 #include "../TAD_Paciente/paciente.h"
 #include "../Pilha_Encadeada/pilha.h"
@@ -33,8 +34,10 @@ void registrar_paciente(LISTA *lista, FILA *fila)
     char nome[100];
     printf("Digite o ID do paciente: ");
     scanf("%d", &id);
+    getchar();
     printf("Digite o nome do paciente: ");
     fgets(nome, 99, stdin);
+    nome[strcspn(nome, "\n")] = '\0';
     if (lista_busca(lista, id) != NULL)
     {
         printf("Já existe paciente com esse ID!\n");
@@ -97,8 +100,10 @@ void adicionar_procedimento(LISTA *lista)
     char procedimento[100];
     printf("Digite o ID do paciente: ");
     scanf("%d", &id);
+    getchar();
     printf("Digite o procedimento: ");
     fgets(procedimento, 99, stdin);
+    procedimento[strcspn(procedimento, "\n")] = '\0';
     PACIENTE *paciente = lista_busca(lista, id);
     if(pilha_cheia(paciente_get_historico(paciente))) {
         printf("Não é possível adicionar procedimento ao histórico do paciente %d pois este já atingiu a quantidade máxima de procedimentos.\n", id);
