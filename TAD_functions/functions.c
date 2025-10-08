@@ -26,7 +26,8 @@ void imprimir_escolha_operacao(void)
 // Solicita ao usuário o ID e o nome, cria a estrutura e registra os dados na lista e na fila recebidas por parâmetro.
 void registrar_paciente(LISTA *lista, FILA *fila)
 {
-    if(fila_cheia(fila)) {
+    if (fila_cheia(fila))
+    {
         printf("Não é possível registrar paciente pois a fila de espera está cheia.\n");
         return;
     }
@@ -112,7 +113,8 @@ void adicionar_procedimento(LISTA *lista)
     fgets(procedimento, 99, stdin);
     procedimento[strcspn(procedimento, "\n")] = '\0';
     PACIENTE *paciente = lista_busca(lista, id);
-    if(pilha_cheia(paciente_get_historico(paciente))) {
+    if (pilha_cheia(paciente_get_historico(paciente)))
+    {
         printf("Não é possível adicionar procedimento ao histórico do paciente %d pois este já atingiu a quantidade máxima de procedimentos.\n", id);
         return;
     }
@@ -142,7 +144,8 @@ void chamar_paciente(FILA *fila)
 // Função que imprime todos os pacientes atualmente na fila recebida.
 void mostrar_fila(FILA *fila)
 {
-    if(fila_vazia(fila)) {
+    if (fila_vazia(fila))
+    {
         printf("A fila está vazia!\n");
         return;
     }

@@ -184,10 +184,12 @@ PACIENTE *lista_remover(LISTA *l, int chave)
     }
 
     PACIENTE *paciente = p->conteudo;
-    paciente_apagar(&paciente); // Libera histórico e paciente
+    anterior->proximo = p->proximo;
+    p->proximo = NULL;
     free(p);
+    p = NULL;
     l->tamanho--;
-    return NULL; // Retorna NULL pois o paciente foi apagado
+    return paciente; // Retorna o paciente retirado da lista geral.
 }
 
 PACIENTE *lista_primeiro(LISTA *l)
