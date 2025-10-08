@@ -131,7 +131,8 @@ int fila_tamanho(FILA *f)
 
 bool fila_cheia(FILA *f)
 {
-    if(f != NULL && f->tamanho >= 10) {
+    if (f != NULL && f->tamanho >= 10)
+    {
         return true;
     }
     return false;

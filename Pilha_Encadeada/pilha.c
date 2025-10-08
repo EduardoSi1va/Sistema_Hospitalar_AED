@@ -119,10 +119,13 @@ void pilha_imprimir(PILHA *pilha)
             printf("- %s\n", aux->procedimento);
             aux = aux->anterior;
         }
-    } else {
+    }
+    else
+    {
         printf("Histórico vazio!\n");
     }
-    if(pilha_cheia(pilha)) {
+    if (pilha_cheia(pilha))
+    {
         printf("Histórico cheio!\n");
     }
 }
