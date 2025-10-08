@@ -73,13 +73,10 @@ void registrar_obito(LISTA *lista, FILA *fila)
         if ((fila_busca(fila, id)) == NULL)
         {
             printf("Óbito de %s registrado com sucesso, paciente removido da base de dados.\n\n", paciente_get_nome(paciente));
-<<<<<<< HEAD
             // Primeiro remover da lista, depois apagar a struct paciente para evitar
             // dangling pointers em funções que consultam a lista.
             lista_remover(lista, id);
-=======
             paciente = lista_remover(lista, id);
->>>>>>> b7c1878c355b555556ff09ee3c3ea0290fe35175
             paciente_apagar(&paciente);
             return;
         }
