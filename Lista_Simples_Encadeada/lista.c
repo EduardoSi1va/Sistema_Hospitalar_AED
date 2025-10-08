@@ -280,3 +280,17 @@ PACIENTE *lista_no_paciente(void *no)
         return NULL;
     return ((NO *)no)->conteudo;
 }
+
+void lista_esvaziar(LISTA *lista) {
+    if(lista == NULL || lista_vazia(lista)) return;
+
+    NO *aux;
+    while (lista->inicio != NULL) {
+        aux = lista->inicio;
+        lista->inicio = lista->inicio->proximo;
+        paciente_apagar(&(aux->conteudo));
+        free(aux);
+    }
+    lista->fim = NULL;
+    lista->tamanho = 0;
+}

@@ -62,6 +62,16 @@ int main()
         case 9:
             printf("Encerrando serviço de atendimento médico.\n");
             break;
+        case 471728:
+            //Limpeza dos arquivos .bin para resetar o sistema.            
+            lista_esvaziar(lista);
+            fila_esvaziar(fila);
+            
+            salvar_pacientes(lista, fila);
+            
+            printf("Base de Dados Apagada - Sistema Resetado\n");
+            printf("Estado vazio salvo com sucesso.\n\n");
+            break;
         default:
             printf("Digite uma operação válida.\n");
             break;

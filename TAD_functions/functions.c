@@ -32,18 +32,20 @@ void registrar_paciente(LISTA *lista, FILA *fila)
         printf("Não é possível registrar paciente pois a fila de espera está cheia.\n");
         return;
     }
+    
     int id;
-    if (lista_busca(lista, id) != NULL)
-    {
-        printf("Já existe um paciente com esse ID!\n\n");
-        fila_inserir_paciente(fila, lista_busca(lista, id));
-
-        return;
-    }
     char nome[100];
     printf("Digite o ID do paciente: ");
     scanf("%d", &id);
     getchar();
+    
+    if (lista_busca(lista, id) != NULL)
+    {
+        printf("Já existe um paciente com esse ID!\n\n");
+        fila_inserir_paciente(fila, lista_busca(lista, id));
+        return;
+    }
+    
     printf("Digite o nome do paciente: ");
     fgets(nome, 99, stdin);
     nome[strcspn(nome, "\n")] = '\0';
@@ -73,11 +75,11 @@ void registrar_obito(LISTA *lista, FILA *fila)
         if ((fila_busca(fila, id)) == NULL)
         {
             printf("Óbito de %s registrado com sucesso, paciente removido da base de dados.\n\n", paciente_get_nome(paciente));
-            // Primeiro remover da lista, depois apagar a struct paciente para evitar
-            // dangling pointers em funções que consultam a lista.
-            lista_remover(lista, id);
+            // Remover da lista e apagar a struct paciente
             paciente = lista_remover(lista, id);
-            paciente_apagar(&paciente);
+            if (paciente != NULL) {
+                paciente_apagar(&paciente);
+            }
             return;
         }
         printf("Registro de óbito inválido, paciente está na fila de espera.\n\n");
@@ -174,7 +176,7 @@ void mostrar_historico(LISTA *lista)
         printf("Paciente não encontrado!\n\n");
         return;
     }
-    printf("Histórico do paciente %d:\n", id);
+    printf("Histórico Médico de %s:\n", paciente_get_nome(paciente));
     pilha_imprimir(paciente_get_historico(paciente));
 }
 
