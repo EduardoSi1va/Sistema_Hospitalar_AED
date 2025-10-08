@@ -32,16 +32,23 @@ void registrar_paciente(LISTA *lista, FILA *fila)
         printf("Não é possível registrar paciente pois a fila de espera está cheia.\n");
         return;
     }
+
     int id;
     printf("Digite o ID do paciente: ");
     scanf("%d", &id);
     getchar();
+    
     if (lista_busca(lista, id) != NULL)
     {
-        printf("Já existe um paciente com esse ID!\n\n");
+        if(fila_busca(fila, id) != NULL) {
+            printf("Já existe um paciente com esse ID e este já está na fila.\n\n");
+            return;
+        }
+        printf("Já existe um paciente com esse ID... reinserindo-o na fila de espera.\n\n");
         fila_inserir_paciente(fila, lista_busca(lista, id));
         return;
     }
+
     char nome[100];
     printf("Digite o nome do paciente: ");
     fgets(nome, 99, stdin);
@@ -157,7 +164,7 @@ void mostrar_fila(FILA *fila)
         return;
     }
 
-    printf("Fila de espera:");
+    printf("Fila de espera:\n");
     fila_imprimir(fila);
 }
 
