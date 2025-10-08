@@ -12,7 +12,7 @@
 bool SAVE(LISTA *lista, FILA *fila)
 {
     // --- Salvar lista de pacientes ---
-    FILE *fp_lista = fopen("lista_pacientes.bin", "wb");
+    FILE *fp_lista = fopen("Persistencia_Dados/lista_pacientes.bin", "wb");
     if (!fp_lista)
         return false;
     int tam_lista = lista_tamanho(lista);
@@ -41,7 +41,7 @@ bool SAVE(LISTA *lista, FILA *fila)
     fclose(fp_lista);
 
     // --- Salvar fila de pacientes ---
-    FILE *fp_fila = fopen("fila_pacientes.bin", "wb");
+    FILE *fp_fila = fopen("Persistencia_Dados/fila_pacientes.bin", "wb");
     if (!fp_fila)
         return false;
     int tam_fila = fila_tamanho(fila);
@@ -77,7 +77,7 @@ bool LOAD(LISTA **lista, FILA **fila)
     if (!*lista || !*fila)
         return false;
     // --- Carregar lista de pacientes ---
-    FILE *fp_lista = fopen("lista_pacientes.bin", "rb");
+    FILE *fp_lista = fopen("Persistencia_Dados/lista_pacientes.bin", "rb");
     if (!fp_lista)
         return false;
     int tam_lista = 0;
@@ -102,7 +102,7 @@ bool LOAD(LISTA **lista, FILA **fila)
     fclose(fp_lista);
 
     // --- Carregar fila de pacientes ---
-    FILE *fp_fila = fopen("fila_pacientes.bin", "rb");
+    FILE *fp_fila = fopen("Persistencia_Dados/fila_pacientes.bin", "rb");
     if (!fp_fila)
         return false;
     int tam_fila = 0;

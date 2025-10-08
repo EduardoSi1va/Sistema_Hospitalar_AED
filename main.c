@@ -70,7 +70,14 @@ int main()
 
     // Salvar dados antes de sair
     salvar_pacientes(lista, fila);
-    lista_apagar(&lista);
-    fila_apagar(&fila);
+    
+    // Limpeza segura com verificação de erros
+    if (lista != NULL) {
+        lista_apagar(&lista);
+    }
+    if (fila != NULL) {
+        fila_apagar(&fila);
+    }
+    
     return 0;
 }

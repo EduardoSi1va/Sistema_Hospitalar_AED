@@ -2,13 +2,15 @@
 
 Este projeto simula um sistema de atendimento médico de pacientes em um Pronto Socorro (PS), utilizando Tipos Abstratos de Dados (TADs) em C.
 
-## Estrutura
+- ## Estrutura
 - `main.c` - ponto de entrada e loop do menu.
-- `build.ps1` - script PowerShell para compilar no Windows usando `gcc` (MinGW/WSL/etc.).
-- `sistema_hospitalar.exe` - binário gerado após compilação (não comitado obrigatoriamente).
-- `lista_pacientes.bin`, `fila_pacientes.bin` - arquivos de persistência gerados pelo programa.
-
-Diretórios principais:
+Diretórios principais / TADs:
+- `TAD_Paciente/` - (`paciente.c`, `paciente.h`) cadastro, busca, remoção e gerenciamento de pacientes (id, nome, histórico).
+- `Lista_Simples_Encadeada/` - (`lista.c`, `lista.h`) lista dinâmica para armazenar pacientes (a lista é dona das estruturas `PACIENTE`).
+- `Fila_Encadeada/` - (`fila.c`, `fila.h`) fila encadeada para triagem (FIFO) com capacidade finita (implementada como 10 no código atual).
+- `Pilha_Encadeada/` - (`pilha.c`, `pilha.h`) pilha encadeada para histórico de procedimentos (LIFO) — máximo 10 procedimentos, cada um até 100 caracteres.
+- `TAD_functions/` - (`functions.c`, `functions.h`) implementa as operações do menu e a lógica de negócio (registrar, óbito, procedimentos, chamada, etc.).
+- `TAD_IO/` - (`IO.c`, `IO.h`) persistência: `SAVE` e `LOAD` para ler/gravar `lista_pacientes.bin` e `fila_pacientes.bin`.
 - `TAD_Paciente/` - (`paciente.c`, `paciente.h`) criação e gerenciamento de `PACIENTE` (id, nome, histórico).
 - `Lista_Simples_Encadeada/` - (`lista.c`, `lista.h`) TAD lista para registrar pacientes (a lista é a dona das estruturas `PACIENTE`).
 - `Fila_Encadeada/` - (`fila.c`, `fila.h`) TAD fila para triagem (FIFO). A fila armazena ponteiros para `PACIENTE` existentes na lista.
