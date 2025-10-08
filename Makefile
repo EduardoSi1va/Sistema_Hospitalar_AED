@@ -5,7 +5,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -pedantic -g
 TARGET = sistema_hospitalar
-OBJ_DIR = obj
+OBJ_DIR = Objects
 DATA_DIR = data
 
 # Arquivos fonte
@@ -24,7 +24,7 @@ SOURCES = main.c \
           $(SRCDIR_FUNCTIONS)/functions.c \
           $(SRCDIR_IO)/IO.c
 
-# Arquivos objeto (convertendo .c para .o no diretório obj/)
+# Arquivos objeto (convertendo .c para .o no diretório Objects/)
 OBJECTS = $(SOURCES:%.c=$(OBJ_DIR)/%.o)
 
 # Dependências de header
