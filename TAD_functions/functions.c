@@ -25,6 +25,10 @@ void imprimir_escolha_operacao(void)
 // Solicita ao usuário o ID e o nome, cria a estrutura e registra os dados na lista e na fila recebidas por parâmetro.
 void registrar_paciente(LISTA *lista, FILA *fila)
 {
+    if(fila_cheia(fila)) {
+        printf("Não é possível registrar paciente pois a fila de espera está cheia.\n");
+        return;
+    }
     int id;
     char nome[100];
     printf("Digite o ID do paciente: ");
@@ -96,6 +100,10 @@ void adicionar_procedimento(LISTA *lista)
     printf("Digite o procedimento: ");
     scanf("%s", procedimento);
     PACIENTE *paciente = lista_busca(lista, id);
+    if(pilha_cheia(paciente_get_historico(paciente))) {
+        printf("Não é possível adicionar procedimento ao histórico do paciente %d pois este já atingiu a quantidade máxima de procedimentos.\n", id);
+        return;
+    }
     if (paciente == NULL)
     {
         printf("Paciente não encontrado!\n");

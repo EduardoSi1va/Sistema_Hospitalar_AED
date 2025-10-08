@@ -53,14 +53,8 @@ bool pilha_vazia(PILHA *pilha)
 
 bool pilha_cheia(PILHA *pilha)
 {
-    if (pilha != NULL)
+    if (pilha != NULL && pilha->tamanho >= 10)
     {
-        NO *novo = (NO *)malloc(sizeof(NO));
-        if (novo != NULL)
-        {
-            free(novo);
-            return false;
-        }
         return true;
     }
     return false;
@@ -125,10 +119,11 @@ void pilha_imprimir(PILHA *pilha)
             printf("- %s\n", aux->procedimento);
             aux = aux->anterior;
         }
-    }
-    else
-    {
+    } else {
         printf("Histórico vazio!\n");
+    }
+    if(pilha_cheia(pilha)) {
+        printf("Histórico cheio!\n");
     }
 }
 
