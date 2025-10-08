@@ -34,7 +34,7 @@ void registrar_paciente(LISTA *lista, FILA *fila)
     printf("Digite o ID do paciente: ");
     scanf("%d", &id);
     printf("Digite o nome do paciente: ");
-    scanf("%s", nome);
+    fgets(nome, 99, stdin);
     if (lista_busca(lista, id) != NULL)
     {
         printf("Já existe paciente com esse ID!\n");
@@ -98,7 +98,7 @@ void adicionar_procedimento(LISTA *lista)
     printf("Digite o ID do paciente: ");
     scanf("%d", &id);
     printf("Digite o procedimento: ");
-    scanf("%s", procedimento);
+    fgets(procedimento, 99, stdin);
     PACIENTE *paciente = lista_busca(lista, id);
     if(pilha_cheia(paciente_get_historico(paciente))) {
         printf("Não é possível adicionar procedimento ao histórico do paciente %d pois este já atingiu a quantidade máxima de procedimentos.\n", id);
@@ -130,6 +130,11 @@ void chamar_paciente(FILA *fila)
 // Função que imprime todos os pacientes atualmente na fila recebida.
 void mostrar_fila(FILA *fila)
 {
+    if(fila_vazia(fila)) {
+        printf("A fila está vazia!\n");
+        return;
+    }
+
     printf("Fila de espera:\n");
     fila_imprimir(fila);
 }
