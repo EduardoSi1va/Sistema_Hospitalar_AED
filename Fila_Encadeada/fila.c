@@ -142,7 +142,6 @@ void fila_imprimir(FILA *f)
     }
 }
 
-// Iteração segura para persistência
 void *fila_primeiro_no(FILA *fila)
 {
     if (!fila)
