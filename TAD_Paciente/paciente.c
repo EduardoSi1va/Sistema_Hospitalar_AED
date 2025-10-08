@@ -45,10 +45,6 @@ void paciente_imprimir(PACIENTE *paciente)
    if (paciente != NULL)
    {
       printf("\n%s - %d\n", paciente->nome, paciente->id);
-      if (paciente->historico != NULL)
-      {
-         pilha_imprimir(paciente->historico);
-      }
    }
 }
 PILHA *paciente_get_historico(PACIENTE *paciente)

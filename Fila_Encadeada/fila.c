@@ -131,12 +131,8 @@ int fila_tamanho(FILA *f)
 
 bool fila_cheia(FILA *f)
 {
-    if(f != NULL) {        
-        NO *novo = (NO *)malloc(sizeof(NO));
-        if(novo == NULL) 
-            return true;
-        free(novo);
-        return false;
+    if(f != NULL && f->tamanho >= 10) {
+        return true;
     }
     return false;
 }
