@@ -29,7 +29,7 @@ void registrar_paciente(LISTA *lista, FILA *fila)
     if (fila_cheia(fila))
     {
         //imprime mensagem de erro caso a fila de espera já esteja cheia
-        printf("Não é possível registrar paciente pois a fila de espera está cheia.\n");
+        printf("Não é possível registrar paciente, pois a fila de espera está cheia.\n");
         return;
     }
 
