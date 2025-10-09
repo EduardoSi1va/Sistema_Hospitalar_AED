@@ -41,3 +41,9 @@ Diretórios principais / TADs:
 6. Mostrar fila de espera
 7. Mostrar histórico do paciente
 8. Sair
+
+## Compilação
+gcc -o sistema_hospitalar main.c Fila_Encadeada/fila.c Lista_Simples_Encadeada/lista.c Pilha_Encadeada/pilha.c TAD_functions/functions.c TAD_IO/IO.c TAD_Paciente/paciente.c
+
+## Execução
+./sistema_hospitalar
