@@ -1,6 +1,10 @@
 ## Sistema Hospitalar AED
 
 Este projeto simula um sistema de atendimento médico de pacientes em um Pronto Socorro (PS), utilizando Tipos Abstratos de Dados (TADs) em C.
+Desenvolvido por:
+- André Campanholo Paschoalini - 14558061
+- Eduardo Poltroniere da Silva - 16862892
+- Pedro Hamamoto da Palma - 16818280
 
 - ## Estrutura
 - `main.c` - ponto de entrada e loop do menu.
@@ -44,3 +48,4 @@ gcc -o sistema_hospitalar main.c Fila_Encadeada/fila.c Lista_Simples_Encadeada/l
 
 ## Execução
 ./sistema_hospitalar
+
