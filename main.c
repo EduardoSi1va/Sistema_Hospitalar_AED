@@ -9,11 +9,11 @@
 
 int main()
 {
-    LISTA *lista = lista_criar(false); // Lista não ordenada
-    FILA *fila = fila_criar();
+    LISTA *lista = lista_criar(false); //criação da lista não ordenada
+    FILA *fila = fila_criar(); //criação da fila de espera
     int operacao;
 
-    // Carregar dados do disco (persistência)
+    //carrega os dados salvos do sistema
     if (!LOAD(&lista, &fila))
     {
         printf("[Aviso] Não foi possível carregar dados anteriores. Iniciando sistema limpo.\n");
@@ -22,6 +22,7 @@ int main()
     printf("Serviço de Atendimento Médico\n");
     printf("-------------------------------------------------");
 
+    //laço de seleção de operação
     do
     {
         imprimir_escolha_operacao();
@@ -29,8 +30,7 @@ int main()
         if (scanf("%d", &operacao) != 1)
         {
             printf("Entrada inválida.\n");
-            while (getchar() != '\n')
-                ; // Limpa buffer
+            while(getchar() != '\n'); //limpa o buffer
             continue;
         }
         printf("\n");
@@ -64,7 +64,7 @@ int main()
             printf("Encerrando serviço de atendimento médico.\n");
             break;
         case 471728:
-            //Limpeza dos arquivos .bin para resetar o sistema.            
+            //limpeza dos arquivos .bin para resetar o sistema.            
             lista_esvaziar(lista);
             fila_esvaziar(fila);
             
@@ -73,16 +73,17 @@ int main()
             printf("Base de Dados Apagada - Sistema Resetado\n");
             printf("Estado vazio salvo com sucesso.\n\n");
             break;
+            //não aborta o programa, continua funcionando porém com o banco de dados zerado
         default:
             printf("Digite uma operação válida.\n");
             break;
         }
     } while (operacao != 9);
 
-    // Salvar dados antes de sair
+    //salvamento dos dados antes da saída do programa
     salvar_pacientes(lista, fila);
     
-    // Limpeza segura com verificação de erros
+    //apaga a lista e fila para evitar memmory leak
     if (lista != NULL) {
         lista_apagar(&lista);
     }
