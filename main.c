@@ -9,7 +9,7 @@
 
 int main()
 {
-    LISTA *lista = lista_criar(false); //criação da lista não ordenada
+    LISTA *lista = lista_criar(false); //criação da lista não ordenada de pacientes
     FILA *fila = fila_criar(); //criação da fila de espera
     int operacao;
 

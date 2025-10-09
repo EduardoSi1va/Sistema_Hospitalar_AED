@@ -8,10 +8,8 @@
 #include "../TAD_Paciente/paciente.h"
 #include "../Pilha_Encadeada/pilha.h"
 
-// Salva a lista de pacientes em arquivo binário
 bool SAVE(LISTA *lista, FILA *fila)
 {
-    // --- Salvar lista de pacientes ---
     FILE *fp_lista = fopen("Persistencia_Dados/lista_pacientes.bin", "wb");
     if (!fp_lista)
         return false;
@@ -40,7 +38,6 @@ bool SAVE(LISTA *lista, FILA *fila)
     }
     fclose(fp_lista);
 
-    // --- Salvar fila de pacientes ---
     FILE *fp_fila = fopen("Persistencia_Dados/fila_pacientes.bin", "wb");
     if (!fp_fila)
         return false;
@@ -71,12 +68,10 @@ bool SAVE(LISTA *lista, FILA *fila)
     return true;
 }
 
-// Carrega a lista e fila de pacientes de arquivos binários
 bool LOAD(LISTA **lista, FILA **fila)
 {
     if (!*lista || !*fila)
         return false;
-    // --- Carregar lista de pacientes ---
     FILE *fp_lista = fopen("Persistencia_Dados/lista_pacientes.bin", "rb");
     if (!fp_lista)
         return false;
@@ -101,7 +96,6 @@ bool LOAD(LISTA **lista, FILA **fila)
     }
     fclose(fp_lista);
 
-    // --- Carregar fila de pacientes ---
     FILE *fp_fila = fopen("Persistencia_Dados/fila_pacientes.bin", "rb");
     if (!fp_fila)
         return false;

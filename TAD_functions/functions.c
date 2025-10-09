@@ -7,7 +7,7 @@
 #include "../Fila_Encadeada/fila.h"
 #include "../TAD_IO/IO.h"
 
-// Função que exibe o menu principal de operações disponíveis ao usuário.
+//função que exibe o menu principal de operações disponíveis ao usuário.
 void imprimir_escolha_operacao(void)
 {
     printf("\nOperação desejada:\n");

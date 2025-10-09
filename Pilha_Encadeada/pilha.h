@@ -14,8 +14,6 @@ char *pilha_topo(PILHA *pilha);
 bool pilha_empilhar(PILHA *pilha, const char *procedimento);
 bool pilha_desempilhar(PILHA *pilha, char *procedimento);
 void pilha_imprimir(PILHA *pilha);
-
-// Retorna o procedimento na posição 'indice' (0 = fundo, tamanho-1 = topo)
 bool pilha_obter_elemento(PILHA *pilha, int indice, char *procedimento);
 
 #endif

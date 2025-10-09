@@ -130,12 +130,10 @@ void pilha_imprimir(PILHA *pilha)
     }
 }
 
-// Retorna o procedimento na posição 'indice' (0 = fundo, tamanho-1 = topo)
 bool pilha_obter_elemento(PILHA *pilha, int indice, char *procedimento)
 {
     if (!pilha || indice < 0 || indice >= pilha->tamanho)
         return false;
-    // Copia todos os procedimentos para um array temporário
     int tam = pilha->tamanho;
     char temp[tam][100];
     NO *no = pilha->topo;

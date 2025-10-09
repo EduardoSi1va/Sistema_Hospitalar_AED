@@ -83,7 +83,7 @@ bool lista_inserir_ordenada(LISTA *l, PACIENTE *conteudo)
 
     if (anterior == NULL)
     {
-        novo->proximo = l->inicio; // l->inicio == NULL;
+        novo->proximo = l->inicio;
         l->inicio = novo;
         if (l->fim == NULL)
         {
@@ -108,14 +108,12 @@ bool lista_inserir(LISTA *l, PACIENTE *conteudo)
     bool x = false;
     if (l != NULL)
     {
-        // Verifica se já existe paciente com o mesmo ID
         NO *p = l->inicio;
         int novo_id = paciente_get_id(conteudo);
         while (p != NULL)
         {
             if (paciente_get_id(p->conteudo) == novo_id)
             {
-                // ID duplicado, não insere
                 return false;
             }
             p = p->proximo;
@@ -157,25 +155,21 @@ PACIENTE *lista_remover(LISTA *l, int chave)
     NO *p = l->inicio;
     NO *anterior = NULL;
 
-    // Procura o elemento na lista
     while (p != NULL && paciente_get_id(p->conteudo) != chave)
     {
         anterior = p;
         p = p->proximo;
     }
 
-    // Se não encontrou o elemento
     if (p == NULL)
         return NULL;
 
-    // Remove o primeiro elemento
     if (anterior == NULL)
     {
         l->inicio = p->proximo;
         if (l->inicio == NULL)
             l->fim = NULL;
     }
-    // Remove elemento do meio ou fim
     else
     {
         anterior->proximo = p->proximo;
@@ -188,7 +182,7 @@ PACIENTE *lista_remover(LISTA *l, int chave)
     free(p);
     p = NULL;
     l->tamanho--;
-    return paciente; // Retorna o paciente retirado da lista geral.
+    return paciente;
 }
 
 PACIENTE *lista_primeiro(LISTA *l)
@@ -261,19 +255,21 @@ void lista_imprimir(LISTA *l)
         p = p->proximo;
     }
 }
-// Iteração segura para persistência
+
 void *lista_primeiro_no(LISTA *lista)
 {
     if (!lista)
         return NULL;
     return (void *)lista->inicio;
 }
+
 void *lista_proximo_no(void *no)
 {
     if (!no)
         return NULL;
     return (void *)(((NO *)no)->proximo);
 }
+
 PACIENTE *lista_no_paciente(void *no)
 {
     if (!no)

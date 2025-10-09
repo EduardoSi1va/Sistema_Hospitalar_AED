@@ -163,6 +163,7 @@ void *fila_primeiro_no(FILA *fila)
         return NULL;
     return (void *)fila->inicio;
 }
+
 void *fila_proximo_no(void *no)
 {
     if (!no)
