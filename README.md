@@ -43,9 +43,16 @@ Diretórios principais / TADs:
 8. Mostrar lista de pacientes
 9. Sair
 
+## Escolha dos TADs
+**TAD Paciente:** O TAD paciente implementado é equivalente ao TAD item, alterando apenas os campos da struct. Cada paciente possui um ID, um nome e um histórico de procedimentos, o último sendo um ponteiro para pilha (outro TAD utilizado). Existem funções de criar, apagar, ler id e nome e histórico e imprimir as informações (id e nome) de um paciente, todas de custo constante O(1). Outras funções que foram implementadas durante a aula estão presentes no código do TAD porém não são utilizadas no projeto.
+**TAD Pilha:** O TAD pilha é a estrutura de dados utilizado para armazenar os procedimentos do histórico médico dos pacientes. Desta maneira, cada nó da pilha armazena um string 'procedimento' de no máximo 100 caracteres (além de um ponteiro para o anterior). A pilha possui apenas um ponteiro para o nó do topo e o tamanho inteiro da pilha. A escolha foi a de uma pilha encadeada devido à alocação dinâmica dos nós, tendo em vista que estruturas de dados do tipo encadeada são mais eficientes no geral e queríamos treinar este tipo de implementação. Existem funções de criar, apagar, empilhar, desempilhar, verificar tamanho, verificar se está cheia ou vazia e de impressão da pilha. Todas as funções exceto a de apagar e a de imprimir possuem custo constante O(1), enquanto estas possuem custo O(n), em que n é o número de procedimentos da pilha.
+**TAD Fila Encadeada:** Foi utilizada um fila encadeada como estrutura de dados que armazena os pacientes da fila de espera. Escolhemos a implementação encadeada pois existem muitas inserções e remoções de pacientes na fila, equivalentes aos procedimentos de registro e convocação para atendimento de cada paciente. Se trata da melhor escolha pois uma implementação sequencial (se não circular) exige deslocamentos após toda remoção, enquanto o modelo encadeado resolve este problema apenas com ajuste de ponteiros. A estrutura da fila contém um ponteiro para o nó do início, um para o fim e o tamanho inteiro da fila. Cada nó armazena um paciente (mais especificamente, um ponteiro para paciente) e um ponteiro para o próximo nó. Existem funções de criar, apagar, inserir, remover, buscar, consultar a frente e o fim da fila, verificar se está cheia ou vazia, verificar o tamanho, acessar o próximo nó e o paciente de um nó, além de uma função que esvazia a fila sem apagá-la. Destas, possuem complexidade O(n) as funções de apagar, buscar, imprimir e esvaziar a fila, enquanto as demais tem custo O(1).
+**TAD Lista Simplesmente Encadeada:** A lista encadeada foi utilizada para armazenar todos os pacientes do banco de dados, e escolhemos esta implementação pelo mesmo motivo da fila encadeada: existem muitas inserções e remoções de pacientes, que se dão na forma de novos cadastros e registros de óbitos, respectivamente.
+
 ## Compilação
 gcc -o sistema_hospitalar main.c Fila_Encadeada/fila.c Lista_Simples_Encadeada/lista.c Pilha_Encadeada/pilha.c TAD_functions/functions.c TAD_IO/IO.c TAD_Paciente/paciente.c
 
 ## Execução
 ./sistema_hospitalar
+
 
