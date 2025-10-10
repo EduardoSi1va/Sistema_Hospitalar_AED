@@ -52,11 +52,84 @@ Diretórios principais / TADs:
 
 **TAD Lista Simplesmente Encadeada:** A lista encadeada foi utilizada para armazenar todos os pacientes do banco de dados, e escolhemos esta implementação pelo mesmo motivo da fila encadeada: existem muitas inserções e remoções de pacientes, que se dão na forma de novos cadastros e registros de óbitos, respectivamente. Ademais, na data de implementação do esqueleto do projeto tínhamos visto somente este tipo de lista. A estrutura da lista contém um ponteiro para o nó do início, um para o fim, o tamanho inteiro da lista e uma variável booleana que permite escolher se a lista criada é ordenada ou não (no nosso sistema a lista de pacientes não é ordenada). Cada nó possui um ponteiro para paciente e um ponteiro para o próximo nó. Neste TAD existem funções de criar, apagar, inserir, remover, buscar, verificar se está cheia ou vazia, verificar o tamanho atual, imprimir a lista e esvaziar a lista. As que possuem complexidade O(n), diferente das demais que tem custo constante, são as funções de remoção, de busca, de imprimir, e de esvaziar a lista.
 
+**TAD Functions:** TAD que contém as nove funções da interface do usuário. Esse TAD inclui todos os outros, e usa as funções dele para realizar as operações do hospital. Abaixo, um resumo das funcionalidades de cada uma:
+
+`imprimir_escolha_operacao()`
+Exibe no terminal o menu principal de operações (opções **1 a 9**) e retorna ao programa.
+
+`registrar_paciente(LISTA lista, FILA fila)`
+Cadastra ou reinsere um paciente na fila de atendimento.
+- Se a **fila estiver cheia**, aborta a operação.
+- Lê o **ID** do paciente.
+- Se **já existir paciente com esse ID**:
+  - Se **já estiver na fila**, informa erro.
+  - Se **não estiver na fila**, reinsere-o na fila.
+- Se **não existir**, lê o nome, cria o `PACIENTE`, insere na `LISTA` e também na `FILA`.
+
+`registrar_obito(LISTA lista, FILA fila)`
+Remove definitivamente um paciente do sistema.
+
+- Lê o **ID**.
+- Se **existir na LISTA** e **não estiver na FILA**, remove da lista e destrói o registro.
+- Se **existir, mas estiver na FILA**, bloqueia o registro de óbito.
+- Se **não existir**, informa que o paciente é inexistente.
+
+`desfazer_procedimento(LISTA lista)`
+Desfaz o **último procedimento** do histórico médico de um paciente.
+
+- Lê o **ID** e busca o paciente.
+- Se o paciente for encontrado:
+  - Tenta **desempilhar** o topo da `PILHA` de histórico.
+  - Se conseguir, imprime o procedimento desfeito.
+  - Se a pilha estiver vazia, informa ao usuário.
+- Se o paciente **não for encontrado**, avisa que é inexistente.
+  
+`adicionar_procedimento(LISTA lista)`
+Adiciona um novo procedimento ao histórico médico do paciente.
+
+- Lê o **ID** e a **descrição** do procedimento.
+- Verifica se o paciente existe:
+  - Se **não existir**, avisa.
+  - Se existir, verifica se a `PILHA` está cheia:
+    - Se estiver, bloqueia a inserção.
+    - Caso contrário, **empilha** o procedimento e confirma.
+    
+`chamar_paciente(FILA fila)`
+Chama o próximo paciente para atendimento.
+- Remove (**dequeue**) o primeiro paciente da `FILA`.
+- Se havia alguém, imprime o ID chamado.
+- Se a fila estiver vazia, informa ao usuário.
+  
+`mostrar_fila(FILA fila)`
+Exibe a **fila de espera**.
+- Se a fila estiver **vazia**, informa.
+- Caso contrário, imprime todos os pacientes da `FILA`.
+  
+`mostrar_historico(LISTA lista)`
+Mostra o **histórico médico** de um paciente específico.
+- Lê o **ID** e busca o paciente.
+- Se o paciente **não existir**, informa.
+- Se existir:
+  - Imprime o nome do paciente.
+  - Exibe os procedimentos da `PILHA` de histórico (do **topo ao fundo**, via `pilha_imprimir()`).
+
+`salvar_pacientes(LISTA lista, FILA fila)`
+Salva os dados atuais do sistema.
+
+- Chama a função `SAVE(lista, fila)`.
+- Informa ao usuário se a operação foi concluída com sucesso ou se houve falha.
+
+**TAD IO:** TAD responsável pela persistência dos dados. As operações de salvar e de carregar as informações são feitas durante o encerramento e o ínicio do programa, respectivamente. Os dados não são salvos on-the-fly. A implementação foi feita com base no TAD IO fornecido pelos professores, com algumas adaptações para se ajustar à implementação do sistema. Foram utilizados recursos de IA para auxiliar no desenvolvimento dessa função, já que houveram dificuldades para adaptá-la para nosso programa.
+
 ## Compilação
+
 gcc -o sistema_hospitalar main.c Fila_Encadeada/fila.c Lista_Simples_Encadeada/lista.c Pilha_Encadeada/pilha.c TAD_functions/functions.c TAD_IO/IO.c TAD_Paciente/paciente.c
 
 ## Execução
 ./sistema_hospitalar
+
+
+
 
 
 
