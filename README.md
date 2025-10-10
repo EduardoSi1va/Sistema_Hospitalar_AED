@@ -119,7 +119,7 @@ Salva os dados atuais do sistema.
 - Chama a função `SAVE(lista, fila)`.
 - Informa ao usuário se a operação foi concluída com sucesso ou se houve falha.
 
-**TAD IO:** TAD responsável pela permanência dos dados. As operações de salvar e de carregar as informações são feitas durante o encerramento e o ínicio do programa, respectivamente. Os dados não são salvos on-the-fly. A implementação foi feita com base no TAD IO fornecido pelos professores, com algumas adaptações para se ajustar à implementação do sistema. Foram utilizados recursos de IA para auxiliar no desenvolvimento dessa função, já que houveram dificuldades para adaptá-la para nosso programa.
+**TAD IO:** TAD responsável pela persistência dos dados. As operações de salvar e de carregar as informações são feitas durante o encerramento e o ínicio do programa, respectivamente. Os dados não são salvos on-the-fly. A implementação foi feita com base no TAD IO fornecido pelos professores, com algumas adaptações para se ajustar à implementação do sistema. Foram utilizados recursos de IA para auxiliar no desenvolvimento dessa função, já que houveram dificuldades para adaptá-la para nosso programa.
 
 ## Compilação
 
@@ -127,6 +127,7 @@ gcc -o sistema_hospitalar main.c Fila_Encadeada/fila.c Lista_Simples_Encadeada/l
 
 ## Execução
 ./sistema_hospitalar
+
 
 
 
